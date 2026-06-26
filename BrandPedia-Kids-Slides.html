@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BrandPedia Kids · IAI²O 2026 · AI for Business</title>
+<style>
+  :root{
+    --bg:#fff7ed; --bg2:#fef0e6; --ink:#2b2a4c; --muted:#6b6a8f; --line:#f1e6d8;
+    --primary:#ff7a59; --secondary:#6c5ce7; --sky:#4cc9f0; --sun:#ffd166;
+    --mint:#06d6a0; --pink:#ff5d8f;
+    --sans:"Inter","Nunito",ui-sans-serif,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0c0b1a;color:var(--ink);font-family:var(--sans);overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center}
+
+  #stage{position:relative;width:1280px;height:720px;flex:0 0 auto;
+    transform-origin:center center;overflow:hidden;
+    background:var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 16%, rgba(255,209,102,.20), transparent 40%),
+      radial-gradient(circle at 88% 10%, rgba(108,92,231,.12), transparent 42%),
+      radial-gradient(circle at 80% 90%, rgba(6,214,160,.12), transparent 44%);
+  }
+  .slide{position:absolute;inset:0;padding:64px 88px;display:none;flex-direction:column}
+  .slide.active{display:flex;animation:rise .5s cubic-bezier(.2,.8,.2,1)}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  .topbar{position:absolute;top:30px;left:88px;right:88px;display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:14px;letter-spacing:.02em;color:var(--muted)}
+  .brand{color:var(--ink)}
+  .brand b{color:var(--primary)}
+  .brand .kids{background:rgba(108,92,231,.12);color:var(--secondary);padding:2px 7px;border-radius:7px;margin-left:2px;font-size:13px}
+  .pageno{color:var(--muted)}
+  .pageno b{color:var(--secondary)}
+  .progress{position:absolute;left:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--primary),var(--pink));transition:width .5s ease}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-top:26px}
+  .eyebrow .dot{width:9px;height:9px;border-radius:50%;background:var(--primary)}
+  h1.en{font-size:74px;line-height:1.02;font-weight:900;letter-spacing:-.02em;color:var(--ink);margin-top:6px}
+  h2.en{font-size:52px;line-height:1.05;font-weight:900;letter-spacing:-.02em;color:var(--ink);margin-top:4px}
+  .sub{font-size:23px;font-weight:700;color:var(--secondary);margin-top:14px}
+  .lede{font-size:20px;line-height:1.55;color:var(--muted);font-weight:600;max-width:920px;margin-top:16px}
+  .divider{width:64px;height:5px;border-radius:5px;background:var(--primary);margin:22px 0}
+
+  .body{flex:1;display:flex;gap:28px;margin-top:18px}
+
+  .grid{display:grid;gap:20px;width:100%}
+  .card{background:#fff;border:1.5px solid #fff;border-radius:22px;padding:26px 26px;box-shadow:0 14px 34px rgba(43,42,76,.08)}
+  .card .ico{font-size:34px}
+  .card h3{font-size:22px;font-weight:900;color:var(--ink);margin-top:10px}
+  .card p{font-size:16px;line-height:1.55;color:var(--muted);font-weight:600;margin-top:8px}
+  .card .zh{font-size:14px;color:#9a98b8;margin-top:4px;font-weight:700}
+
+  .num{position:absolute;top:34px;right:88px;font-size:150px;font-weight:900;line-height:1;color:rgba(108,92,231,.08)}
+
+  ul.clean{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  ul.clean li{display:flex;gap:14px;align-items:flex-start;font-size:19px;font-weight:600;color:var(--ink);line-height:1.5}
+  ul.clean li .b{flex:0 0 auto;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:16px;color:#fff;font-weight:900;margin-top:1px}
+  ul.clean li .zh{display:block;font-size:14px;color:#9a98b8;font-weight:700;margin-top:2px}
+
+  .pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border-radius:999px;padding:8px 16px;font-weight:800;font-size:15px;color:var(--ink);box-shadow:0 8px 20px rgba(43,42,76,.07)}
+  .pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+
+  .cover{justify-content:center;align-items:flex-start;padding-top:0}
+  .cover .hero{margin-top:120px}
+  .cover .bigtitle{font-size:120px;font-weight:900;line-height:.95;letter-spacing:-.03em;color:var(--ink)}
+  .cover .bigtitle b{color:var(--primary)}
+  .cover .kids-tag{display:inline-block;background:var(--secondary);color:#fff;padding:8px 22px;border-radius:16px;font-size:34px;font-weight:900;margin-top:18px}
+  .cover .tagline{font-size:27px;font-weight:800;color:var(--ink);margin-top:26px}
+  .cover .tagline .em{color:var(--secondary)}
+  .cover .meta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .cover .badge{background:#fff;border-radius:14px;padding:12px 18px;font-weight:800;font-size:16px;box-shadow:0 10px 24px rgba(43,42,76,.08);display:flex;gap:9px;align-items:center}
+  .emojis{position:absolute;right:70px;bottom:70px;font-size:96px;letter-spacing:6px;opacity:.5}
+
+  .arch{display:flex;flex-direction:column;gap:14px;width:100%;margin-top:8px}
+  .layer{display:flex;align-items:center;gap:18px;background:#fff;border-radius:18px;padding:16px 22px;box-shadow:0 10px 26px rgba(43,42,76,.07)}
+  .layer .lab{flex:0 0 168px;font-weight:900;font-size:17px;color:var(--ink)}
+  .layer .lab small{display:block;color:var(--muted);font-weight:700;font-size:12px;margin-top:2px}
+  .layer .chips{display:flex;flex-wrap:wrap;gap:9px;flex:1}
+  .chip{background:var(--bg2);border-radius:11px;padding:8px 13px;font-weight:800;font-size:14px;color:var(--ink)}
+  .chip.s{background:rgba(108,92,231,.12);color:var(--secondary)}
+  .chip.p{background:rgba(255,122,89,.14);color:var(--primary)}
+  .chip.m{background:rgba(6,214,160,.16);color:#04936f}
+  .arrow{align-self:center;color:var(--muted);font-size:16px;font-weight:900}
+
+  .loop{display:flex;align-items:stretch;gap:0;justify-content:space-between;margin-top:14px}
+  .step{flex:1;background:#fff;border-radius:20px;padding:24px 18px;text-align:center;box-shadow:0 12px 28px rgba(43,42,76,.07);position:relative}
+  .step .n{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:900;margin:0 auto 12px}
+  .step h4{font-size:19px;font-weight:900;color:var(--ink)}
+  .step p{font-size:14px;color:var(--muted);font-weight:700;margin-top:7px;line-height:1.45}
+  .car{display:flex;align-items:center;color:var(--muted);font-weight:900;font-size:22px;flex:0 0 auto;padding:0 6px}
+
+  .dims{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+  .dim{background:#fff;border-radius:20px;padding:22px;box-shadow:0 12px 28px rgba(43,42,76,.07);border-top:6px solid var(--primary)}
+  .dim .ico{font-size:30px}
+  .dim h4{font-size:19px;font-weight:900;margin-top:8px;color:var(--ink)}
+  .dim p{font-size:14px;color:var(--muted);font-weight:600;margin-top:6px;line-height:1.5}
+
+  .twocol{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;margin-top:8px}
+  .panel{background:#fff;border-radius:22px;padding:28px;box-shadow:0 14px 32px rgba(43,42,76,.08)}
+  .panel h3{font-size:21px;font-weight:900;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .panel h3 .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:18px;color:#fff}
+
+  .stat{display:flex;gap:14px;margin-top:6px}
+  .stat .big{font-size:50px;font-weight:900;line-height:1;color:var(--secondary)}
+  .stat .lab2{font-size:15px;font-weight:700;color:var(--muted);align-self:center}
+
+  .table{width:100%;border-collapse:collapse;margin-top:8px}
+  .table td{padding:11px 8px;border-bottom:1px solid var(--line);font-size:15px;font-weight:600}
+  .table td:first-child{color:var(--ink);font-weight:800;width:42%}
+  .table td:last-child{color:var(--muted)}
+  .tag{display:inline-block;background:rgba(6,214,160,.16);color:#04936f;border-radius:8px;padding:3px 9px;font-size:13px;font-weight:800}
+
+  .end{justify-content:center;align-items:center;text-align:center}
+  .end h1{font-size:96px;font-weight:900;letter-spacing:-.02em}
+  .end h1 b{color:var(--primary)}
+  .end .lg{font-size:30px;color:var(--secondary);font-weight:800;margin-top:20px}
+  .end .row{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;justify-content:center}
+
+  #notes{position:absolute;left:0;right:0;bottom:0;background:rgba(12,11,26,.96);color:#fff;padding:26px 88px;font-size:17px;line-height:1.6;font-weight:500;display:none;z-index:30}
+  #notes.show{display:block}
+  #notes b{color:var(--sun)}
+
+  #hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);color:#6b6a8f;font-size:12px;font-weight:700;background:rgba(255,255,255,.06);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px);z-index:50}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 · COVER -->
+  <section class="slide cover active">
+    <div class="hero">
+      <div class="eyebrow"><span class="dot"></span> IAI²O 2026 · AI for Business</div>
+      <div class="bigtitle">Brand<b>Pedia</b></div>
+      <div class="kids-tag">Kids 🧭</div>
+      <div class="tagline">Turning everyday brands into <span class="em">stories kids get</span> 🎧</div>
+      <div class="meta">
+        <div class="badge">🎯 AI business literacy, ages 6–14</div>
+        <div class="badge">🌐 Bilingual · B2C EdTech</div>
+        <div class="badge">⚡ Runs with zero API keys</div>
+      </div>
+    </div>
+    <div class="emojis">🧃🎮👟🍎</div>
+    <div class="progress" style="width:6.25%"></div>
+  </section>
+
+  <!-- 2 · PROBLEM -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">01 / <b>15</b></span></div>
+    <span class="num">01</span>
+    <div class="eyebrow"><span class="dot"></span> The Problem</div>
+    <h2 class="en">Kids live in a world of brands —<br/>but understand none of it.</h2>
+    <div class="sub">They're surrounded by brands, yet grasp nothing about how business works.</div>
+    <div class="divider"></div>
+    <div class="body">
+      <ul class="clean">
+        <li><span class="b" style="background:var(--primary)">1</span><div>From a Starbucks coffee to an iPhone, every product hides a lesson in pricing, supply chain & consumer psychology.<span class="zh">But nobody explains it to kids.</span></div></li>
+        <li><span class="b" style="background:var(--secondary)">2</span><div>Traditional business / financial literacy is dry and abstract — kids simply tune out.<span class="zh">Textbooks don't speak their language.</span></div></li>
+        <li><span class="b" style="background:var(--mint)">3</span><div>Parents want to teach, but can't find content kids actually understand.<span class="zh">The gap between "expert" and "kid-friendly" is huge.</span></div></li>
+        <li><span class="b" style="background:var(--pink)">4</span><div>Ages 6–14 are the golden window for cognition — and a blank zone for business literacy.<span class="zh">The exact age no one is serving.</span></div></li>
+      </ul>
+    </div>
+    <div class="progress" style="width:12.5%"></div>
+  </section>
+
+  <!-- 3 · ANSWER -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">02 / <b>15</b></span></div>
+    <span class="num">02</span>
+    <div class="eyebrow"><span class="dot"></span> Our Answer</div>
+    <h2 class="en">An AI children's<br/>business encyclopedia.</h2>
+    <div class="sub">AI-driven — kids learn business by listening to stories.</div>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="card"><div class="ico">🎧</div><h3>Listen, don't read</h3><p>A conversational podcast: two virtual hosts chat through each brand in 3–5 minutes.</p><div class="zh">Dual-host podcast, 3–5 min.</div></div>
+        <div class="card"><div class="ico">🧠</div><h3>Understand, not just watch</h3><p>Six knowledge dimensions break each brand into memorable business logic.</p><div class="zh">6 dimensions → real comprehension.</div></div>
+        <div class="card"><div class="ico">🤖</div><h3>Explore any brand</h3><p>Type any brand a kid is curious about — AI generates the full story instantly.</p><div class="zh">Type any brand → AI builds it.</div></div>
+      </div>
+    </div>
+    <div class="progress" style="width:18.75%"></div>
+  </section>
+
+  <!-- 4 · PRODUCT AT A GLANCE -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">03 / <b>15</b></span></div>
+    <span class="num">03</span>
+    <div class="eyebrow"><span class="dot"></span> Product at a Glance</div>
+    <h2 class="en">Three experiences, one playful app.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1fr 1fr 1fr;align-content:start">
+        <div class="card" style="border-top:6px solid var(--primary)"><div class="ico">🖼️</div><h3>① Logo Wall · Home</h3><p>30+ curated brands in a grid. Hover to enlarge, click to flip for a fun fact, then enter.</p><div class="zh">Grid · hover · flip-to-fun-fact · enter.</div></div>
+        <div class="card" style="border-top:6px solid var(--secondary)"><div class="ico">🎙️</div><h3>② Podcast + Card Flow</h3><p>A bottom Mini Player plays audio; cards highlight in sync with the podcast beat.</p><div class="zh">Mini player · cards sync to audio.</div></div>
+        <div class="card" style="border-top:6px solid var(--mint)"><div class="ico">🤖</div><h3>③ Explore New Brands</h3><p>Type "Pop Mart" or "Mixue" — a robot-loading animation, then a full brand page.</p><div class="zh">Type any brand → robot loading → page.</div></div>
+      </div>
+      <div class="pills" style="margin-top:8px">
+        <span class="pill">🃏 Flip animation</span><span class="pill">🎚️ Speed 0.8/1/1.2x</span><span class="pill">📊 Chart cards</span><span class="pill">⏳ Timeline cards</span><span class="pill">🧠 Quiz</span><span class="pill">🔗 Related brands</span>
+      </div>
+    </div>
+    <div class="progress" style="width:25%"></div>
+  </section>
+
+  <!-- 5 · EXPERIENCE LOOP -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">04 / <b>15</b></span></div>
+    <span class="num">04</span>
+    <div class="eyebrow"><span class="dot"></span> The Experience Loop</div>
+    <h2 class="en">How a kid actually learns here.</h2>
+    <div class="divider"></div>
+    <div class="body" style="flex-direction:column">
+      <div class="loop">
+        <div class="step"><div class="n" style="background:var(--primary)">1</div><h4>🔍 Browse</h4><p>Pick a familiar brand from the wall</p></div>
+        <div class="car">→</div>
+        <div class="step"><div class="n" style="background:var(--secondary)">2</div><h4>🎧 Listen & Sync</h4><p>Hosts chat; cards flip in sync with the audio</p></div>
+        <div class="car">→</div>
+        <div class="step"><div class="n" style="background:var(--sky)">3</div><h4>🧠 Quiz</h4><p>7 question types; distractors from real data</p></div>
+        <div class="car">→</div>
+        <div class="step"><div class="n" style="background:var(--mint)">4</div><h4>🤖 Explore</h4><p>"I want to learn…" → AI generates a new brand</p></div>
+        <div class="car">↻</div>
+      </div>
+      <div class="panel" style="margin-top:22px">
+        <h3><span class="ic" style="background:var(--primary)">✨</span> Key mechanism: podcast ↔ card sync</h3>
+        <p style="font-size:17px;color:var(--muted);font-weight:600;line-height:1.6">Every podcast segment is bound to a card via <code style="background:var(--bg2);padding:2px 7px;border-radius:6px;font-size:14px">segment.cardId</code>. When audio reaches a segment, its card highlights and scrolls into view — <b style="color:var(--ink)">what you hear is what you see</b>, enabling multimodal learning.</p>
+      </div>
+    </div>
+    <div class="progress" style="width:31.25%"></div>
+  </section>
+
+  <!-- 6 · SIX DIMENSIONS -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">05 / <b>15</b></span></div>
+    <span class="num">05</span>
+    <div class="eyebrow"><span class="dot"></span> Curriculum · Six Dimensions</div>
+    <h2 class="en">A complete picture of every brand.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="dims">
+        <div class="dim" style="border-top-color:var(--primary)"><div class="ico">📖</div><h4>Brand Story</h4><p>How it began, who founded it, memorable moments.</p></div>
+        <div class="dim" style="border-top-color:var(--secondary)"><div class="ico">💡</div><h4>Product Thinking</h4><p>What they sell — and why it resonates.</p></div>
+        <div class="dim" style="border-top-color:var(--sun)"><div class="ico">💰</div><h4>Money Logic</h4><p>Revenue sources and cost structure.</p></div>
+        <div class="dim" style="border-top-color:var(--mint)"><div class="ico">✨</div><h4>Marketing Magic</h4><p>Why the ads work, how it spreads.</p></div>
+        <div class="dim" style="border-top-color:var(--pink)"><div class="ico">⚔️</div><h4>Competition</h4><p>Who the rivals are and how they compete.</p></div>
+        <div class="dim" style="border-top-color:var(--sky)"><div class="ico">📊</div><h4>Fun Data</h4><p>Memorable numbers and surprising facts.</p></div>
+      </div>
+    </div>
+    <div class="progress" style="width:37.5%"></div>
+  </section>
+
+  <!-- 7 · ARCHITECTURE -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">06 / <b>15</b></span></div>
+    <span class="num">06</span>
+    <div class="eyebrow"><span class="dot"></span> Tech Architecture</div>
+    <h2 class="en">One stack, clean layers.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="arch">
+        <div class="layer"><div class="lab">Client UI<small>Frontend</small></div><div class="chips"><span class="chip">Next.js 16 · App Router</span><span class="chip">React 19</span><span class="chip">TypeScript</span><span class="chip">Tailwind v4</span><span class="chip">Framer Motion</span></div></div>
+        <div class="arrow">▼</div>
+        <div class="layer"><div class="lab">API Layer<small>Next.js Route Handlers</small></div><div class="chips"><span class="chip p">/api/brands</span><span class="chip p">/api/search</span><span class="chip p">/api/generate (SSE)</span><span class="chip p">/api/tts</span><span class="chip p">/api/wishlist</span></div></div>
+        <div class="arrow">▼</div>
+        <div class="layer"><div class="lab">AI Adapter Layer<small>Env-gated Adapters</small></div><div class="chips"><span class="chip s">LLM · OpenAI</span><span class="chip s">TTS · ElevenLabs / Azure</span><span class="chip s">Image · DALL·E</span></div></div>
+        <div class="arrow">▼</div>
+        <div class="layer"><div class="lab">Local Fallback<small>Zero-key runtime</small></div><div class="chips"><span class="chip m">Web Speech dual voices</span><span class="chip m">SVG/Emoji charts</span><span class="chip m">Template generator</span><span class="chip m">Local JSON storage</span></div></div>
+      </div>
+    </div>
+    <div class="progress" style="width:43.75%"></div>
+  </section>
+
+  <!-- 8 · ADAPTER PATTERN -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">07 / <b>15</b></span></div>
+    <span class="num">07</span>
+    <div class="eyebrow"><span class="dot"></span> The Key Decision</div>
+    <h2 class="en">Zero-config now.<br/>Infinitely scalable later.</h2>
+    <div class="sub">Works out of the box, then upgrades to real AI services seamlessly.</div>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="twocol">
+        <div class="panel">
+          <h3><span class="ic" style="background:var(--mint)">🔓</span> No API key · runs offline</h3>
+          <ul class="clean">
+            <li><span class="b" style="background:var(--mint)">✓</span><div>Browser Web Speech dual-voice podcast</div></li>
+            <li><span class="b" style="background:var(--mint)">✓</span><div>SVG / Emoji charts and illustrations</div></li>
+            <li><span class="b" style="background:var(--mint)">✓</span><div>Template generator builds 6-dimension content</div></li>
+            <li><span class="b" style="background:var(--mint)">✓</span><div>Local JSON persistence</div></li>
+          </ul>
+          <p style="margin-top:14px;font-size:15px;color:var(--muted);font-weight:700">→ Judges run <b style="color:var(--ink)">npm install && npm run dev</b> with zero setup.</p>
+        </div>
+        <div class="panel">
+          <h3><span class="ic" style="background:var(--secondary)">🚀</span> Add an env key · auto-upgrades</h3>
+          <table class="table">
+            <tr><td>OPENAI_API_KEY</td><td>Real LLM writes scripts</td></tr>
+            <tr><td>ELEVENLABS / AZURE</td><td>Studio-grade TTS audio</td></tr>
+            <tr><td>DALL·E key</td><td>Real brand illustrations</td></tr>
+            <tr><td>USE_SUPABASE</td><td>Cloud storage / Serverless</td></tr>
+          </table>
+          <p style="margin-top:14px;font-size:15px;color:var(--muted);font-weight:700">→ Same interface, <b style="color:var(--ink)">zero migration</b> from demo to production.</p>
+        </div>
+      </div>
+    </div>
+    <div class="progress" style="width:50%"></div>
+  </section>
+
+  <!-- 9 · AI ENGINEERING -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">08 / <b>15</b></span></div>
+    <span class="num">08</span>
+    <div class="eyebrow"><span class="dot"></span> AI Engineering</div>
+    <h2 class="en">AI done responsibly, for kids.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1fr 1fr">
+        <div class="card"><div class="ico">🗣️</div><h3>Dual-voice podcast</h3><p>Picks one male + one female voice from <code>getVoices()</code>, distinguishes by pitch; supports speed control and segment-seek.</p></div>
+        <div class="card"><div class="ico">🎲</div><h3>Deterministic seeding (FNV)</h3><p>Same input → same output, eliminating SSR hydration mismatches for stable, reproducible content.</p></div>
+        <div class="card"><div class="ico">🧩</div><h3>7 question types · 0 wrong answers</h3><p>Every brand's distractors come from <b>other brands' real data</b>, so options never repeat — and correctness is fully verified.</p></div>
+        <div class="card"><div class="ico">📡</div><h3>SSE streaming generation</h3><p>Exploring a new brand streams progress stage-by-stage (research → script → cards → save), synced live with the loading animation.</p></div>
+      </div>
+    </div>
+    <div class="progress" style="width:56.25%"></div>
+  </section>
+
+  <!-- 10 · CONTENT QUALITY -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">09 / <b>15</b></span></div>
+    <span class="num">09</span>
+    <div class="eyebrow"><span class="dot"></span> Content & Pedagogy</div>
+    <h2 class="en">Real, varied, kid-true — not fluff.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="twocol">
+        <div class="panel">
+          <h3><span class="ic" style="background:var(--primary)">📚</span> Real data, hand-verified</h3>
+          <div class="stat"><span class="big">31</span><span class="lab2">curated brands · 7 categories<br/>hand-checked metadata (year / founder / country / slogan)</span></div>
+          <div class="stat"><span class="big">6</span><span class="lab2">knowledge dimensions per brand<br/>3 template variants, anchored to distinct facts — no repetition</span></div>
+          <div class="stat"><span class="big">2</span><span class="lab2">languages: English + Chinese<br/>full UI language toggle</span></div>
+        </div>
+        <div class="panel">
+          <h3><span class="ic" style="background:var(--secondary)">📝</span> Kid survey · data flywheel</h3>
+          <ul class="clean">
+            <li><span class="b" style="background:var(--secondary)">①</span><div>A 3-step survey asks kids what brand they want to learn</div></li>
+            <li><span class="b" style="background:var(--secondary)">②</span><div>Smart search returns an accurate introduction</div></li>
+            <li><span class="b" style="background:var(--secondary)">③</span><div>Wishes are saved → fuel <b style="color:var(--ink)">popular-brand recommendations</b></div></li>
+          </ul>
+          <p style="margin-top:14px;font-size:15px;color:var(--muted);font-weight:700">→ The product grows with its users — it learns what kids want to learn.</p>
+        </div>
+      </div>
+    </div>
+    <div class="progress" style="width:62.5%"></div>
+  </section>
+
+  <!-- 11 · RESPONSIVE -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">10 / <b>15</b></span></div>
+    <span class="num">10</span>
+    <div class="eyebrow"><span class="dot"></span> Responsive & Inclusive</div>
+    <h2 class="en">Works on the family's every screen.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="card"><div class="ico">💻</div><h3>PC · uses the wide screen</h3><p>5-column desktop / 6-column ultrawide brand grid; two-column podcast + knowledge cards.</p></div>
+        <div class="card"><div class="ico">📱</div><h3>iPad · tablet-native</h3><p>Balanced 3–4 column grid, touch-friendly.</p></div>
+        <div class="card"><div class="ico">📲</div><h3>Mobile · mobile-first</h3><p>2 columns, 44px tap targets, safe-area insets, iOS zoom prevention.</p></div>
+      </div>
+      <div class="pills" style="margin-top:8px">
+        <span class="pill">↔️ No horizontal overflow</span><span class="pill">🟦 safe-area insets</span><span class="pill">👆 44px tap targets</span><span class="pill">🔎 no iOS focus-zoom</span><span class="pill">♿ keyboard + aria</span>
+      </div>
+    </div>
+    <div class="progress" style="width:68.75%"></div>
+  </section>
+
+  <!-- 12 · BUSINESS MODEL -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">11 / <b>15</b></span></div>
+    <span class="num">11</span>
+    <div class="eyebrow"><span class="dot"></span> Business Model (AI4BIZ)</div>
+    <h2 class="en">A market-ready path to revenue.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1fr 1fr">
+        <div class="card" style="border-left:6px solid var(--primary)"><div class="ico">🏠</div><h3>B2C · Family subscription</h3><p>Free trial + paid unlock of premium brands, unlimited exploration, advanced bilingual content. Parents pay, kids benefit.</p></div>
+        <div class="card" style="border-left:6px solid var(--secondary)"><div class="ico">🏫</div><h3>B2B · School licensing</h3><p>Financial-literacy course packs, teacher dashboard, classroom casting — into public and international schools.</p></div>
+        <div class="card" style="border-left:6px solid var(--mint)"><div class="ico">🤝</div><h3>Brand partnerships · IP</h3><p>Featured brands can sponsor official deep-dive pages and campaigns, forming a positive flywheel.</p></div>
+        <div class="card" style="border-left:6px solid var(--sun)"><div class="ico">📈</div><h3>Data asset · recommender</h3><p>Kids' interest-wish data feeds content production — an early-mover moat that compounds.</p></div>
+      </div>
+      <div class="panel" style="margin-top:8px;padding:16px 22px"><p style="font-size:16px;font-weight:700;color:var(--ink)">💰 Controlled marginal cost: AI + templates generate content, Serverless stores it — <b>unit cost falls as scale grows</b>.</p></div>
+    </div>
+    <div class="progress" style="width:75%"></div>
+  </section>
+
+  <!-- 13 · MARKET -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">12 / <b>15</b></span></div>
+    <span class="num">12</span>
+    <div class="eyebrow"><span class="dot"></span> Market & Impact</div>
+    <h2 class="en">Why now, why us, why it wins.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1.1fr 1fr">
+        <div class="panel">
+          <h3><span class="ic" style="background:var(--primary)">🌍</span> Market opportunity</h3>
+          <ul class="clean">
+            <li><span class="b" style="background:var(--primary)">📈</span><div>Fast-growing demand for kids' financial & business literacy, driven by both policy and parent awareness.</div></li>
+            <li><span class="b" style="background:var(--secondary)">🎧</span><div>Children's audio / podcast content is booming — "listening" fits ages 6–14 better than "reading".</div></li>
+            <li><span class="b" style="background:var(--mint)">🤖</span><div>Generative AI makes "instant explainers for any brand" economically viable for the first time.</div></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3><span class="ic" style="background:var(--secondary)">🎯</span> Our edge</h3>
+          <table class="table">
+            <tr><td>Kid-first language</td><td><span class="tag">✓ unique</span></td></tr>
+            <tr><td>Dual-voice podcast</td><td><span class="tag">✓ unique</span></td></tr>
+            <tr><td>Instant any-brand generation</td><td><span class="tag">✓ unique</span></td></tr>
+            <tr><td>6-dimension business frame</td><td><span class="tag">✓ unique</span></td></tr>
+            <tr><td>Zero-key demoable</td><td><span class="tag">✓ unique</span></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="progress" style="width:81.25%"></div>
+  </section>
+
+  <!-- 14 · ROADMAP -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">13 / <b>15</b></span></div>
+    <span class="num">13</span>
+    <div class="eyebrow"><span class="dot"></span> Roadmap</div>
+    <h2 class="en">From a working demo to a platform.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="loop">
+        <div class="step" style="border-top:5px solid var(--mint)"><div class="n" style="background:var(--mint)">Now</div><h4>✅ MVP shipped</h4><p>31 brands · bilingual · all devices · zero-key runnable</p></div>
+        <div class="car">→</div>
+        <div class="step" style="border-top:5px solid var(--sky)"><div class="n" style="background:var(--sky)">3M</div><h4>🔗 Real AI on</h4><p>ElevenLabs/DALL·E/LLM live · user accounts</p></div>
+        <div class="car">→</div>
+        <div class="step" style="border-top:5px solid var(--secondary)"><div class="n" style="background:var(--secondary)">6M</div><h4>🏫 B2B course pack</h4><p>Teacher dashboard · classroom mode · school pilots</p></div>
+        <div class="car">→</div>
+        <div class="step" style="border-top:5px solid var(--primary)"><div class="n" style="background:var(--primary)">12M</div><h4>🌍 Multilingual platform</h4><p>EN/JP/KR · brand IP deals · subscription revenue</p></div>
+      </div>
+      <div class="panel" style="margin-top:22px;padding:18px 24px"><p style="font-size:17px;font-weight:700;color:var(--ink)">📐 Scaling: near-zero marginal content cost + Serverless storage → 100 → 1,000 → 10,000 brands scale linearly.</p></div>
+    </div>
+    <div class="progress" style="width:87.5%"></div>
+  </section>
+
+  <!-- 15 · INNOVATION RECAP -->
+  <section class="slide">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">14 / <b>15</b></span></div>
+    <span class="num">14</span>
+    <div class="eyebrow"><span class="dot"></span> Why BrandPedia Kids</div>
+    <h2 class="en">Three things no one else does.</h2>
+    <div class="divider"></div>
+    <div class="body">
+      <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="card" style="border-top:6px solid var(--primary)"><div class="ico">🧒</div><h3>Education-first AI</h3><p>We don't hand AI to kids — we use AI to translate the complex business world into stories they understand. Safe, fun, measurable.</p></div>
+        <div class="card" style="border-top:6px solid var(--secondary)"><div class="ico">🔓</div><h3>Out-of-the-box architecture</h3><p>Demos with zero keys, yet upgrades to real AI in production with no code migration. Judges experience the full product today.</p></div>
+        <div class="card" style="border-top:6px solid var(--mint)"><div class="ico">💰</div><h3>Clear business path</h3><p>Three revenue lines — B2C + B2B + brand partnerships — with near-zero marginal content cost. A real, AI4BIZ-grade commercial story.</p></div>
+      </div>
+      <div class="panel" style="margin-top:10px;background:linear-gradient(135deg,var(--secondary),var(--primary));padding:22px 28px">
+        <p style="font-size:21px;font-weight:900;color:#fff;line-height:1.4">🎯 One line: every kid, aged 6–14, finally understands the world around them — through stories.<br/><span style="opacity:.9;font-size:17px;font-weight:700">For the first time, business literacy speaks a child's language.</span></p>
+      </div>
+    </div>
+    <div class="progress" style="width:93.75%"></div>
+  </section>
+
+  <!-- 16 · THANK YOU -->
+  <section class="slide end">
+    <div class="topbar"><span class="brand">Brand<b>Pedia</b><span class="kids">Kids</span></span><span class="pageno">15 / <b>15</b></span></div>
+    <div class="emojis" style="top:60px;bottom:auto;right:88px;font-size:54px">🧃🎮👟🍎</div>
+    <div>
+      <div class="eyebrow" style="justify-content:center"><span class="dot"></span> Thank You</div>
+      <h1>Let kids <b>hear</b><br/>how the world works.</h1>
+      <div class="lg">🎤 Live demo · zero setup · npm run dev</div>
+      <div class="row">
+        <div class="pill" style="font-size:17px;padding:11px 20px">🧭 BrandPedia Kids</div>
+        <div class="pill" style="font-size:17px;padding:11px 20px">🏆 IAI²O 2026 · AI for Business</div>
+        <div class="pill" style="font-size:17px;padding:11px 20px">❓ Q & A</div>
+      </div>
+    </div>
+    <div class="progress" style="width:100%"></div>
+  </section>
+
+</div>
+
+<div id="hint">← → / Space  next slide  ·  F fullscreen  ·  N speaker notes  ·  15 slides</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const stage=document.getElementById('stage');
+  function fit(){
+    const s=Math.min(innerWidth/1280,innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  addEventListener('resize',fit);fit();
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('notes')?.classList.remove('show');
+  }
+  const notes=[
+    /*1*/'<b>OPENING · 30s.</b> Hello everyone! We built <b>BrandPedia Kids</b> — an AI-driven business encyclopedia for kids aged 6 to 14. In one line: we turn every everyday brand into a story kids can actually understand.',
+    /*2*/'<b>THE PROBLEM.</b> Kids are surrounded by brands — soda, sneakers, phones, theme parks — yet understand nothing about the business behind them. Financial education is dry. Ages 6–14 are the golden cognition window, yet a total blank zone for business literacy. That is the gap we fill.',
+    /*3*/'<b>OUR ANSWER.</b> An AI children\'s business encyclopedia. Three pillars: <b>listen</b> instead of read, <b>understand</b> via 6 dimensions, and <b>explore</b> any brand.',
+    /*4*/'<b>PRODUCT.</b> Three experiences: the Logo Wall home; the podcast + card-flow detail page; and explore-any-brand. Cards sync to the podcast — what you hear is what you see.',
+    /*5*/'<b>THE LOOP.</b> How a kid learns: browse → listen & sync → quiz → explore, a learning loop. The key mechanism is <b>podcard sync</b> — each audio segment binds to a card via segment.cardId for multimodal learning.',
+    /*6*/'<b>SIX DIMENSIONS.</b> Every brand covers six: story, product, money, marketing, competition, fun data — a complete, three-dimensional business picture.',
+    /*7*/'<b>ARCHITECTURE.</b> Next.js + React + TS + Tailwind + Framer Motion. Four layers: UI → API → AI adapters → local fallback.',
+    /*8*/'<b>KEY DECISION.</b> The most important slide: zero-config × infinite scale. With <b>no keys at all</b>, browser speech + SVG + templates run the whole product; with keys, the same interface flips to ElevenLabs/DALL·E/Supabase. Judges get the full product with zero setup.',
+    /*9*/'<b>AI ENGINEERING.</b> Dual-voice podcast; deterministic seeding kills SSR mismatch; 7 question types with distractors drawn from other brands\' real data, fully verified — zero wrong answers; SSE streaming generation.',
+    /*10*/'<b>CONTENT.</b> Quality: 31 hand-verified real brands, bilingual, de-duplicated templates; plus a kid survey that captures wishes and fuels recommendations — a data flywheel.',
+    /*11*/'<b>RESPONSIVE.</b> Every device — PC / iPad / mobile — with safe areas, 44px tap targets, iOS zoom prevention, and accessibility labels.',
+    /*12*/'<b>BUSINESS · core for AI4BIZ.</b> Four revenue lines: B2C subscription, B2B school licensing, brand partnerships, data assets. Content runs on AI, so <b>marginal cost trends to zero</b>.',
+    /*13*/'<b>MARKET.</b> Why now: literacy demand up + kids audio booming + generative AI makes instant any-brand explainers viable. On the right, our unique edges.',
+    /*14*/'<b>ROADMAP.</b> MVP shipped now; real AI in 3 months; B2B in 6; multilingual platform in 12. Scales linearly.',
+    /*15*/'<b>RECAP.</b> Three things no one else does: education-first AI, out-of-the-box architecture, a clear business path. One-line vision: every kid finally understands the world around them.',
+    /*16*/'<b>CLOSE.</b> Thank you! We can do a <b>live demo</b> right now — npm run dev, zero setup. Questions welcome!'
+  ];
+  let notesEl=document.getElementById('notes');
+  function ensureNotes(){
+    if(!notesEl){notesEl=document.createElement('div');notesEl.id='notes';document.body.appendChild(notesEl);}
+    return notesEl;
+  }
+  addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){go(i+1);e.preventDefault();}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){go(i-1);e.preventDefault();}
+    else if(e.key==='Home'){go(0);}
+    else if(e.key==='End'){go(slides.length-1);}
+    else if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
+    else if(e.key==='n'||e.key==='N'){const n=ensureNotes();if(n.classList.contains('show')){n.classList.remove('show');}else{n.innerHTML='<b>Slide '+(i+1)+' · Speaker Notes</b><br/>'+notes[i];n.classList.add('show');}}
+    else if(e.key==='Escape'){ensureNotes().classList.remove('show');}
+  });
+  go(0);
+  try{const h=parseInt(location.hash.replace('#',''),10);if(h>=1&&h<=slides.length) go(h-1);}catch(e){}
+  addEventListener('hashchange',()=>{const h=parseInt(location.hash.replace('#',''),10);if(h>=1&&h<=slides.length) go(h-1);});
+</script>
+</body>
+</html>
