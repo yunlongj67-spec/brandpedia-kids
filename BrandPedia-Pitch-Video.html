@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BrandPedia Kids — 5-Min Pitch Video</title>
+<style>
+  :root{
+    --bg:#0c0b1a; --cream:#fff7ed; --ink:#2b2a4c; --muted:#6b6a8f;
+    --primary:#ff7a59; --secondary:#6c5ce7; --sky:#4cc9f0; --sun:#ffd166;
+    --mint:#06d6a0; --pink:#ff5d8f; --white:#fff;
+    --sans:"Inter","Nunito",ui-sans-serif,system-ui,-apple-system,"PingFang SC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);font-family:var(--sans);color:var(--cream)}
+  body{display:flex;align-items:center;justify-content:center}
+
+  #stage{
+    position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--cream);
+    background-image:
+      radial-gradient(circle at 12% 16%, rgba(255,209,102,.18), transparent 42%),
+      radial-gradient(circle at 88% 10%, rgba(108,92,231,.14), transparent 44%),
+      radial-gradient(circle at 80% 92%, rgba(6,214,160,.14), transparent 46%);
+  }
+
+  /* ---------- top chrome ---------- */
+  #top{position:absolute;top:0;left:0;right:0;z-index:30;padding:14px 20px 0}
+  #brand{font-weight:900;font-size:15px;color:var(--ink);opacity:.85}
+  #brand b{color:var(--primary)}
+  #chapters{display:flex;gap:6px;margin-top:10px}
+  .chap{flex:1;height:5px;border-radius:99px;background:rgba(43,42,76,.12);overflow:hidden;cursor:pointer}
+  .chap i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--pink));border-radius:99px}
+  .chap.done i{width:100%}
+  #timer{position:absolute;top:14px;right:20px;font-size:13px;font-weight:800;color:var(--muted);z-index:31}
+
+  /* ---------- scenes ---------- */
+  .scene{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 8vw 120px;color:var(--ink)}
+  .scene.active{display:flex}
+  .kicker{font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:14px;color:var(--primary);margin-bottom:14px;opacity:0;animation:fadeUp .6s .05s forwards}
+  .big{font-size:clamp(30px,5.4vw,68px);font-weight:900;line-height:1.05;letter-spacing:-.02em;max-width:16ch;opacity:0;animation:fadeUp .6s .15s forwards}
+  .big em{font-style:normal;color:var(--primary)}
+  .big b{color:var(--secondary)}
+  .lead{margin-top:18px;font-size:clamp(15px,1.7vw,21px);font-weight:600;color:var(--muted);max-width:60ch;opacity:0;animation:fadeUp .6s .3s forwards;line-height:1.5}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(255,122,89,0)}50%{box-shadow:0 0 0 12px rgba(255,122,89,.12)}}
+
+  /* scene 1 */
+  #s1 .emojis{font-size:clamp(40px,7vw,84px);letter-spacing:.1em;margin-top:26px;opacity:.55}
+  #s1 .emojis span{display:inline-block;animation:float 2.6s ease-in-out infinite}
+  #s1 .emojis span:nth-child(2){animation-delay:.3s}
+  #s1 .emojis span:nth-child(3){animation-delay:.6s}
+  #s1 .emojis span:nth-child(4){animation-delay:.9s}
+  #s1 .tag{margin-top:24px;font-size:clamp(16px,2vw,24px);font-weight:800;color:var(--secondary)}
+
+  /* scene 2 — problem */
+  .brandcloud{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:34px;margin:6px 0 4px}
+  .brandcloud span{background:#fff;border-radius:16px;padding:8px 12px;box-shadow:0 8px 22px rgba(43,42,76,.1);animation:pop .5s both}
+  .qmark{font-size:clamp(48px,8vw,96px);margin:10px 0;color:var(--pink);animation:float 2.4s ease-in-out infinite}
+  .pillgrid{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+  .pill{background:#fff;border-radius:99px;padding:9px 16px;font-weight:800;font-size:14px;color:var(--ink);box-shadow:0 6px 16px rgba(43,42,76,.08);opacity:0;animation:fadeUp .5s both}
+
+  /* scene 3 — six dimensions */
+  .dims{display:grid;grid-template-columns:repeat(3,auto);gap:12px;margin-top:26px}
+  .dim{background:#fff;border-radius:18px;padding:16px 20px;font-weight:900;font-size:15px;color:var(--ink);box-shadow:0 10px 26px rgba(43,42,76,.1);border-top:6px solid var(--primary);opacity:0;animation:fadeUp .5s both}
+  .dim .e{font-size:24px;display:block;margin-bottom:4px}
+
+  /* scene 4 — product tour */
+  .tour{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;width:min(880px,92vw)}
+  .tour .card{background:#fff;border-radius:20px;padding:18px;box-shadow:0 12px 28px rgba(43,42,76,.12);text-align:left;opacity:0;animation:fadeUp .55s both}
+  .tour .card h4{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:8px}
+  .tour .card p{font-size:12.5px;color:var(--muted);font-weight:600;line-height:1.4}
+  .mockbars{display:flex;gap:4px;align-items:end;height:34px;margin:6px 0}
+  .mockbars i{flex:1;border-radius:5px;background:linear-gradient(180deg,var(--primary),var(--pink));animation:grow 1.4s ease-in-out infinite}
+  .mockbars i:nth-child(2){animation-delay:.15s} .mockbars i:nth-child(3){animation-delay:.3s}
+  @keyframes grow{0%,100%{height:30%}50%{height:100%}}
+  .wave{display:flex;gap:3px;height:22px;align-items:center;margin:6px 0}
+  .wave i{width:4px;border-radius:3px;background:var(--secondary);animation:wave 1s ease-in-out infinite}
+  .wave i:nth-child(2){animation-delay:.1s}.wave i:nth-child(3){animation-delay:.2s}.wave i:nth-child(4){animation-delay:.3s}.wave i:nth-child(5){animation-delay:.4s}.wave i:nth-child(6){animation-delay:.5s}.wave i:nth-child(7){animation-delay:.6s}
+  @keyframes wave{0%,100%{height:6px}50%{height:22px}}
+
+  /* scene 5 — AI pipeline (centerpiece) */
+  #s5 .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:28px;max-width:1000px}
+  .node{background:#fff;border-radius:16px;padding:12px 14px;min-width:118px;box-shadow:0 10px 24px rgba(43,42,76,.12);opacity:0;animation:fadeUp .5s both;position:relative}
+  .node .ic{font-size:24px}
+  .node h5{font-size:12.5px;font-weight:900;color:var(--ink);margin-top:4px}
+  .node small{display:block;font-size:10.5px;color:var(--muted);font-weight:700;margin-top:2px}
+  .node.lit{animation:lit 1s ease-in-out infinite alternate;border:2px solid var(--primary)}
+  @keyframes lit{from{transform:translateY(0);box-shadow:0 10px 24px rgba(43,42,76,.12)}to{transform:translateY(-5px);box-shadow:0 16px 30px rgba(255,122,89,.35)}}
+  .arrow{color:var(--muted);font-weight:900;font-size:18px}
+  #s5 .note{margin-top:22px;font-size:14px;font-weight:800;color:var(--mint)}
+
+  /* scene 6 — assistant / flywheel */
+  .loop{display:flex;align-items:stretch;gap:0;justify-content:center;margin-top:24px;flex-wrap:wrap;max-width:900px}
+  .loop .step{background:#fff;border-radius:16px;padding:14px 12px;width:150px;box-shadow:0 10px 24px rgba(43,42,76,.1);opacity:0;animation:fadeUp .5s both}
+  .loop .step .n{width:30px;height:30px;border-radius:50%;background:var(--secondary);color:#fff;display:grid;place-items:center;font-weight:900;margin:0 auto 8px}
+  .loop .step h5{font-size:13px;font-weight:900;color:var(--ink)}
+  .loop .step p{font-size:11px;color:var(--muted);font-weight:600;margin-top:4px;line-height:1.3}
+  .loop .car{display:flex;align-items:center;color:var(--muted);font-weight:900;padding:0 4px}
+
+  /* scene 7 — zero config -> scale */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px;width:min(860px,92vw)}
+  .panel{background:#fff;border-radius:20px;padding:20px;box-shadow:0 12px 28px rgba(43,42,76,.12);text-align:left;opacity:0;animation:fadeUp .55s both}
+  .panel h4{font-size:16px;font-weight:900;color:var(--ink);margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:#fef0e6;border-radius:9px;padding:6px 10px;font-size:11.5px;font-weight:800;color:var(--ink)}
+  .chip.s{background:rgba(108,92,231,.12);color:var(--secondary)}
+
+  /* scene 8 — business */
+  .rev{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:22px;width:min(820px,92vw)}
+  .rev .r{background:#fff;border-radius:18px;padding:16px;text-align:left;box-shadow:0 10px 24px rgba(43,42,76,.1);border-left:6px solid var(--primary);opacity:0;animation:fadeUp .5s both}
+  .rev .r h5{font-size:14px;font-weight:900;color:var(--ink)}
+  .rev .r p{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px;line-height:1.35}
+  .marg{margin-top:16px;font-size:15px;font-weight:900;color:var(--mint)}
+
+  /* scene 9 — close */
+  #s9 .vision{margin-top:8px;font-size:clamp(18px,2.4vw,28px);font-weight:800;color:var(--ink);max-width:24ch;line-height:1.35;opacity:0;animation:fadeUp .6s .25s forwards}
+  #s9 .vision em{font-style:normal;color:var(--primary)}
+  #s9 .cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .6s .45s forwards}
+  .btn-pill{background:var(--ink);color:#fff;border-radius:99px;padding:12px 20px;font-weight:900;font-size:14px}
+  .btn-pill.o{background:var(--primary)}
+
+  /* ---------- subtitle + controls ---------- */
+  #sub{position:absolute;left:0;right:0;bottom:74px;z-index:25;display:flex;justify-content:center;padding:0 8vw;pointer-events:none}
+  #sub p{background:rgba(43,42,76,.82);color:#fff;font-weight:700;font-size:clamp(14px,1.6vw,19px);line-height:1.4;padding:12px 20px;border-radius:14px;max-width:80ch;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+
+  #controls{position:absolute;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:14px;padding:14px 20px;background:linear-gradient(180deg,transparent,rgba(255,247,237,.92) 40%)}
+  #controls button{font-family:var(--sans);font-weight:900;font-size:13px;border:none;cursor:pointer;background:var(--ink);color:#fff;border-radius:99px;padding:9px 16px}
+  #controls button.ghost{background:transparent;color:var(--ink);border:2px solid rgba(43,42,76,.15)}
+  #controls .spacer{flex:1}
+  #controls .lab{font-size:12px;font-weight:800;color:var(--muted)}
+
+  /* start overlay */
+  #overlay{position:absolute;inset:0;z-index:50;background:linear-gradient(135deg,var(--secondary),var(--primary));display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:8vw}
+  #overlay h1{font-size:clamp(34px,6vw,76px);font-weight:900;line-height:1;letter-spacing:-.02em}
+  #overlay p{margin-top:16px;font-size:clamp(15px,1.8vw,20px);font-weight:700;max-width:50ch;opacity:.95}
+  #overlay button{margin-top:30px;background:#fff;color:var(--ink);border:none;border-radius:99px;padding:16px 34px;font-family:var(--sans);font-weight:900;font-size:18px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  #overlay .hint{margin-top:14px;font-size:12px;font-weight:700;opacity:.85}
+  #overlay.hide{opacity:0;pointer-events:none;transition:opacity .5s}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <div id="top">
+    <div id="brand">Brand<b>Pedia</b> Kids · Pitch</div>
+    <div id="chapters"></div>
+  </div>
+  <div id="timer">0:00 / 0:00</div>
+
+  <!-- Scene 1 — Title -->
+  <section class="scene" id="s1">
+    <div class="kicker">AI for Business · IAI²O 2026</div>
+    <h2 class="big">The brands kids love, <em>explained by AI</em>.</h2>
+    <div class="emojis"><span>🧃</span><span>🎮</span><span>👟</span><span>🍎</span></div>
+    <div class="tag">BrandPedia Kids — an AI business encyclopedia for ages 6–14</div>
+  </section>
+
+  <!-- Scene 2 — Problem -->
+  <section class="scene" id="s2">
+    <div class="kicker">The problem</div>
+    <h2 class="big">Kids meet hundreds of brands — <em>and understand none of it.</em></h2>
+    <div class="brandcloud"><span>🥤</span><span>👟</span><span>📱</span><span>🏰</span><span>🚗</span><span>🍔</span></div>
+    <div class="qmark">🤔</div>
+    <div class="pillgrid">
+      <span class="pill" style="animation-delay:.1s">Why does Coke cost the same worldwide?</span>
+      <span class="pill" style="animation-delay:.25s">Why do ads sell feelings, not products?</span>
+      <span class="pill" style="animation-delay:.4s">Business class is dry & made for adults</span>
+      <span class="pill" style="animation-delay:.55s">Ages 6–14 = a blank zone</span>
+    </div>
+  </section>
+
+  <!-- Scene 3 — Big idea -->
+  <section class="scene" id="s3">
+    <div class="kicker">Our idea</div>
+    <h2 class="big">An AI <em>business encyclopedia</em> kids <b>listen</b> to.</h2>
+    <p class="lead">Two AI hosts chat through each brand as a 3–5 minute podcast. Illustrated cards move in sync with the audio — <b>what you hear is what you see</b>.</p>
+    <div class="dims">
+      <div class="dim" style="animation-delay:.05s;border-top-color:var(--primary)"><span class="e">📖</span>Brand Story</div>
+      <div class="dim" style="animation-delay:.12s;border-top-color:var(--secondary)"><span class="e">💡</span>Product</div>
+      <div class="dim" style="animation-delay:.19s;border-top-color:var(--sun)"><span class="e">💰</span>Money</div>
+      <div class="dim" style="animation-delay:.26s;border-top-color:var(--mint)"><span class="e">✨</span>Marketing</div>
+      <div class="dim" style="animation-delay:.33s;border-top-color:var(--pink)"><span class="e">⚔️</span>Competition</div>
+      <div class="dim" style="animation-delay:.4s;border-top-color:var(--sky)"><span class="e">📊</span>Fun Data</div>
+    </div>
+  </section>
+
+  <!-- Scene 4 — Product tour -->
+  <section class="scene" id="s4">
+    <div class="kicker">How a kid uses it</div>
+    <h2 class="big">Browse → <em>listen</em> → quiz → explore.</h2>
+    <div class="tour">
+      <div class="card" style="animation-delay:.05s"><h4>🖼️ Logo Wall</h4><p>Tap a brand → flip → fun fact → open its page.</p></div>
+      <div class="card" style="animation-delay:.18s"><h4>🎙️ AI Podcast</h4><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p>Two AI hosts explain it, in sync with cards.</p></div>
+      <div class="card" style="animation-delay:.31s"><h4>📊 Synced Cards</h4><div class="mockbars"><i></i><i></i><i></i></div><p>Charts & timelines highlight with the audio.</p></div>
+    </div>
+    <p class="lead" style="margin-top:18px">Then a short AI quiz checks what stuck — and any new brand is generated on the spot.</p>
+  </section>
+
+  <!-- Scene 5 — AI pipeline (centerpiece) -->
+  <section class="scene" id="s5">
+    <div class="kicker">How AI does the work</div>
+    <h2 class="big">One typed brand → <em>a full lesson in seconds.</em></h2>
+    <div class="flow" id="flow">
+      <div class="node" data-i="0"><div class="ic">⌨️</div><h5>Type a brand</h5><small>kid input</small></div>
+      <div class="arrow">→</div>
+      <div class="node" data-i="1"><div class="ic">🧬</div><h5>Synthesize</h5><small>identity & facts</small></div>
+      <div class="arrow">→</div>
+      <div class="node" data-i="2"><div class="ic">🧠</div><h5>LLM writes</h5><small>6-dim script</small></div>
+      <div class="arrow">→</div>
+      <div class="node" data-i="3"><div class="ic">🗣️</div><h5>Voice model</h5><small>two hosts</small></div>
+      <div class="arrow">→</div>
+      <div class="node" data-i="4"><div class="ic">🎨</div><h5>Image model</h5><small>charts & art</small></div>
+      <div class="arrow">→</div>
+      <div class="node" data-i="5"><div class="ic">🧩</div><h5>Assemble</h5><small>cards + quiz</small></div>
+      <div class="arrow">→</div>
+      <div class="node" data-i="6"><div class="ic">💾</div><h5>Store</h5><small>ready to play</small></div>
+    </div>
+    <div class="note">✅ Deterministic seeding → stable, reproducible, zero hallucination drift</div>
+  </section>
+
+  <!-- Scene 6 — AI assistant / flywheel -->
+  <section class="scene" id="s6">
+    <div class="kicker">AI as the guide</div>
+    <h2 class="big">The AI <em>learns what each kid wants</em> — then teaches it.</h2>
+    <div class="loop">
+      <div class="step" style="animation-delay:.05s"><div class="n">1</div><h5>📝 Ask</h5><p>"What brand do you want to learn?"</p></div>
+      <div class="car">→</div>
+      <div class="step" style="animation-delay:.15s"><div class="n">2</div><h5>🔍 Find / Make</h5><p>Accurate intro, or generate it live</p></div>
+      <div class="car">→</div>
+      <div class="step" style="animation-delay:.25s"><div class="n">3</div><h5>📚 Teach</h5><p>podcast + cards + quiz</p></div>
+      <div class="car">→</div>
+      <div class="step" style="animation-delay:.35s"><div class="n">4</div><h5>♻️ Remember</h5><p>wishes fuel recommendations</p></div>
+    </div>
+    <p class="lead" style="margin-top:18px">Curiosity → story → understanding → repeat. The data flywheel makes it smarter every day.</p>
+  </section>
+
+  <!-- Scene 7 — zero config -> scale -->
+  <section class="scene" id="s7">
+    <div class="kicker">Built to demo today, scale tomorrow</div>
+    <h2 class="big">Zero keys now. <em>Infinitely scalable</em> later.</h2>
+    <div class="two">
+      <div class="panel" style="animation-delay:.05s">
+        <h4>🔓 No key · runs offline</h4>
+        <div class="chips"><span class="chip">Web Speech voices</span><span class="chip">SVG art</span><span class="chip">Template engine</span><span class="chip">Local JSON</span></div>
+      </div>
+      <div class="panel" style="animation-delay:.18s">
+        <h4>🚀 Add a key · auto-upgrades</h4>
+        <div class="chips"><span class="chip s">Real LLM</span><span class="chip s">Studio TTS</span><span class="chip s">Generated art</span><span class="chip s">Supabase</span></div>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:16px">One codebase. <b>Zero migration.</b></p>
+  </section>
+
+  <!-- Scene 8 — business -->
+  <section class="scene" id="s8">
+    <div class="kicker">A real business</div>
+    <h2 class="big">Four revenue lines. <em>Near-zero marginal cost.</em></h2>
+    <div class="rev">
+      <div class="r" style="animation-delay:.05s;border-left-color:var(--primary)"><h5>🏠 B2C subscriptions</h5><p>Families unlock premium brands + unlimited explore</p></div>
+      <div class="r" style="animation-delay:.12s;border-left-color:var(--secondary)"><h5>🏫 B2B licensing</h5><p>Schools: course pack + teacher dashboard</p></div>
+      <div class="r" style="animation-delay:.19s;border-left-color:var(--mint)"><h5>🤝 Brand partnerships</h5><p>Official deep-dive pages & campaigns</p></div>
+      <div class="r" style="animation-delay:.26s;border-left-color:var(--sun)"><h5>📈 Data moat</h5><p>Kids' interest data compounds over time</p></div>
+    </div>
+    <div class="marg">💰 Content is AI-generated → unit cost trends to zero</div>
+  </section>
+
+  <!-- Scene 9 — close -->
+  <section class="scene" id="s9">
+    <div class="kicker">The vision</div>
+    <h2 class="big">Every kid understands the world — <em>through stories.</em></h2>
+    <p class="vision">Before they form their consumer habits. In their language. About the brands they already love. <em>Built end-to-end with AI.</em></p>
+    <div class="cta">
+      <span class="btn-pill o">🧭 BrandPedia Kids</span>
+      <span class="btn-pill">🏆 IAI²O 2026 · AI for Business</span>
+    </div>
+  </section>
+
+  <div id="sub"><p id="subtext"></p></div>
+
+  <div id="controls">
+    <button id="play">⏸ Pause</button>
+    <button id="mute" class="ghost">🔊 Voice: ON</button>
+    <button id="replay" class="ghost">↺ Replay</button>
+    <span class="spacer"></span>
+    <span class="lab">Space = play/pause · M = mute · F = fullscreen</span>
+  </div>
+
+  <div id="overlay">
+    <h1>BrandPedia Kids</h1>
+    <p>A 5-minute animated pitch — how AI powers every step, from a child's curiosity to a full business lesson.</p>
+    <button id="start">▶ Play video</button>
+    <div class="hint">Uses your browser's AI voice (turn up volume). Screen-record to export MP4.</div>
+  </div>
+</div>
+
+<script>
+const SCENES=[
+ {n:"s1",dur:12,sub:"This is BrandPedia Kids — an AI that turns the brands kids already love, into the business lessons they'll never forget."},
+ {n:"s2",dur:31,sub:"Every day, a child meets hundreds of brands. But ask them why a Coke costs the same in every country, or why ads sell feelings — and they have no idea. Business class is dry and made for adults. Ages six to fourteen are a blank zone. We close that gap."},
+ {n:"s3",dur:25,sub:"BrandPedia Kids is an AI-driven business encyclopedia. Instead of textbooks, kids get stories — a podcast hosted by two AI characters, with illustrated cards that move in sync with the audio. What they hear is what they see."},
+ {n:"s4",dur:50,sub:"Here's how a kid uses it. They open a wall of brands they recognize. They tap one — it flips to a fun fact, then opens the page. Two AI hosts start chatting — a fox and a rabbit — explaining the brand across six dimensions. As they talk, charts and timelines animate in sync. Then a short AI quiz checks what stuck. Every word, voice, and picture is generated by AI."},
+ {n:"s5",dur:59,sub:"This is where AI does the heavy lifting. A child types a brand — the AI synthesizes its identity, a language model writes a kid-friendly script across all six dimensions, a voice model brings it to life with two hosts, an image model designs the charts, and the system assembles the cards and a quiz with real cross-brand distractors — all in seconds. Deterministic seeding keeps it stable and reproducible."},
+ {n:"s6",dur:42,sub:"AI isn't just the engine — it's the guide. A short survey asks what a kid wants to learn. The AI searches, gives an accurate intro, or generates a brand-new lesson on the spot. Every wish is remembered, fueling recommendations. The more they use it, the smarter it gets — turning raw curiosity into structured understanding. That's the learning loop."},
+ {n:"s7",dur:25,sub:"The whole thing runs with zero API keys — browser voices, SVG art, local storage. Add a key, and the same code seamlessly upgrades to real language models, studio voices, and generated art. One product, demo-ready today, production-grade tomorrow — with zero migration."},
+ {n:"s8",dur:30,sub:"It's also a real business. Family subscriptions, school licensing, brand partnerships, and a data moat that compounds. Content is generated, not hand-produced — so the marginal cost of the next brand is nearly zero. A product kids use today, a business that scales."},
+ {n:"s9",dur:24,sub:"BrandPedia Kids gives the next generation an intuitive grip on the business world — before they form their consumer habits. Through stories. In their language. About the brands they already love. Built end-to-end with AI. Thank you."},
+];
+const TOTAL=SCENES.reduce((a,s)=>a+s.dur,0);
+
+const $=(id)=>document.getElementById(id);
+const chapters=$("chapters");
+SCENES.forEach((s,i)=>{const d=document.createElement("div");d.className="chap";d.innerHTML="<i></i>";d.onclick=()=>go(i);chapters.appendChild(d);});
+const chapBars=[...document.querySelectorAll(".chap i")];
+
+let idx=0, playing=false, voiceOn=true, started=false;
+let sceneStart=0, acc=0, raf=0;       // timing
+const voices=()=>(typeof speechSynthesis!=="undefined"?speechSynthesis.getVoices():[]);
+let enVoice=null;
+function pickVoice(){
+  const vs=voices();
+  enVoice = vs.find(v=>/^en(-|_|$)/i.test(v.lang)&&/samantha|google us|jenny|aria|zira/i.test(v.name))
+         || vs.find(v=>/^en/i.test(v.lang)) || vs[0] || null;
+}
+if(typeof speechSynthesis!=="undefined") speechSynthesis.onvoiceschanged=pickVoice;
+pickVoice();
+
+function fmt(t){t=Math.max(0,Math.round(t));return Math.floor(t/60)+":"+String(t%60).padStart(2,"0");}
+function showScene(i){
+  SCENES.forEach((s,k)=>{const el=$(s.n);el.classList.toggle("active",k===i);
+    // restart CSS animations by toggling a reflow
+    if(k===i){el.style.animation="none";void el.offsetWidth;}
+  });
+  $("subtext").textContent=SCENES[i].sub;
+  // light pipeline nodes sequentially on s5
+  if(SCENES[i].n==="s5") runPipeline(SCENES[i].dur);
+}
+function runPipeline(dur){
+  const nodes=[...document.querySelectorAll("#flow .node")];
+  nodes.forEach(n=>n.classList.remove("lit"));
+  let k=0; const step=(dur*1000)/(nodes.length+1);
+  const t=setInterval(()=>{ if(k<nodes.length){nodes[k].classList.add("lit");k++;} else clearInterval(t); }, step);
+}
+
+function speak(text){
+  if(!voiceOn||typeof speechSynthesis==="undefined") return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(enVoice) u.voice=enVoice;
+  u.lang="en-US"; u.rate=1.0; u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+
+function go(i){
+  idx=Math.max(0,Math.min(SCENES.length-1,i));
+  acc=0; sceneStart=performance.now();
+  showScene(idx);
+  chapBars.forEach((b,k)=>b.style.width = k<idx ? "100%" : "0%");
+  if(playing) speak(SCENES[idx].sub);
+  if(idx===SCENES.length-1 && acc===0){ /* allow final to hold */ }
+}
+
+function tick(now){
+  if(!playing){return;}
+  const el=(now-sceneStart)/1000 + acc;
+  const s=SCENES[idx];
+  const prog=Math.min(1, el/s.dur);
+  chapBars[idx].style.width=(prog*100)+"%";
+  // total elapsed
+  let before=0; for(let k=0;k<idx;k++) before+=SCENES[k].dur;
+  $("timer").textContent=fmt(before+el)+" / "+fmt(TOTAL);
+  if(el>=s.dur){
+    if(idx<SCENES.length-1){ go(idx+1); }
+    else { pause(); $("play").textContent="↺ Replay"; }
+    return;
+  }
+  raf=requestAnimationFrame(tick);
+}
+
+function play(){ if(idx>=SCENES.length-1 && !playing){ go(0);} playing=true; sceneStart=performance.now(); acc=0; $("play").textContent="⏸ Pause"; speak(SCENES[idx].sub); raf=requestAnimationFrame(tick); }
+function pause(){ playing=false; cancelAnimationFrame(raf); if(typeof speechSynthesis!=="undefined") speechSynthesis.cancel(); $("play").textContent="▶ Play"; }
+
+$("play").onclick=()=>{ playing?pause():play(); };
+$("mute").onclick=()=>{ voiceOn=!voiceOn; $("mute").textContent=voiceOn?"🔊 Voice: ON":"🔇 Voice: OFF"; if(!voiceOn&&typeof speechSynthesis!=="undefined") speechSynthesis.cancel(); if(voiceOn&&playing) speak(SCENES[idx].sub); };
+$("replay").onclick=()=>{ pause(); go(0); play(); };
+$("start").onclick=()=>{ $("overlay").classList.add("hide"); started=true; go(0); play(); };
+
+addEventListener("keydown",e=>{
+  if(!started && e.key==="Enter"){$("start").click();return;}
+  if(e.key===" "){e.preventDefault();playing?pause():play();}
+  else if(e.key==="m"||e.key==="M"){$("mute").click();}
+  else if(e.key==="f"||e.key==="F"){document.documentElement.requestFullscreen?.();}
+  else if(e.key==="ArrowRight"){go(idx+1);if(playing)play();}
+  else if(e.key==="ArrowLeft"){go(idx-1);if(playing)play();}
+});
+
+// init
+showScene(0);
+$("timer").textContent="0:00 / "+fmt(TOTAL);
+</script>
+</body>
+</html>

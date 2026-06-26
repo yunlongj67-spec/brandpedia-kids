@@ -1,0 +1,10 @@
+Slide,Required Content,Tips for You (Solo + Cursor)
+1. Title,"Project name, tagline, and your name (team)","Make the tagline action-driven, e.g., “Automating X with AI”"
+2. The Problem,Pain point description with supporting data/statistics,Show a flowchart of the manual process to highlight inefficiency
+3. The AI Solution,High-level overview of your product/service,Keep it simple: “User inputs X → AI outputs Y”
+4. Competitive Value Curve (Mandatory),"Line graph comparing your solution vs. top 2 competitors on key metrics (speed, cost, accuracy)",Fill the chart with actual test results from your Cursor‑built prototype
+5. AI System Architecture (Mandatory),Flowchart: Data Inputs → AI Model Processing → User Outputs,Map your pipeline clearly: user data → your Python preprocessing → LLM API call → post‑processing → result
+6. Market Size,"TAM / SAM / SOM (Total Addressable, Serviceable, Obtainable)",Use credible industry reports; do not invent numbers
+7. Go‑to‑Market Strategy,"How you will acquire customers (e.g., SEO, communities, enterprise partnerships)","For solo founders, consider Product‑Led Growth (PLG) as a starting point"
+8. Financial Projections,3‑year revenue and cost forecast,"Crucial: include API call costs (e.g., GPT‑4o, Claude, etc.)"
+9. The Ask,"Resources needed to continue building (funding, compute, etc.)","Be specific – e.g., “$X for GPU/API credits, $Y for living expenses”"

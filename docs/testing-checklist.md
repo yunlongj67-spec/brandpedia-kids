@@ -19,7 +19,7 @@ An end-to-end manual test checklist. Each item lists the verification step and e
 - [ ] **Logo card hover**: the card enlarges slightly, the logo wobbles, and the slogan appears.
 - [ ] **Logo card click**: flips to the back showing a fun fact, then (~1.3s later) navigates to that brand's detail page.
 - [ ] **Search box**: typing "coca" or "apple" shows a suggestion dropdown; clicking a suggestion navigates; typing an uncatalogued term shows "✨ Explore new brand: xxx".
-- [ ] The top **language toggle** switches the UI between Chinese / English.
+- [ ] The top **language toggle** switches the UI between English / Chinese (English is the default on first load).
 - [ ] The bottom "Explore new brand" banner button navigates to `/explore`.
 
 ## C. Brand detail page
@@ -68,9 +68,11 @@ An end-to-end manual test checklist. Each item lists the verification step and e
 
 ## F. Bilingual
 
+- [ ] On a fresh load (no saved preference, English browser) the site opens in **English**; the `<html lang>` matches.
 - [ ] After toggling language site-wide: home copy, hero, category names, buttons, and card titles all change.
+- [ ] **Deep content switches too**, not just labels: the 6-dimension section text, podcast captions, and quiz options all render in the selected language.
 - [ ] Brand names / taglines / slogans switch between languages.
-- [ ] The language preference persists across refresh (localStorage).
+- [ ] The language preference persists across refresh (`localStorage` key `bpk-lang2`).
 
 ## G. Compatibility & accessibility
 

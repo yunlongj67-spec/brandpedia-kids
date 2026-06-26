@@ -427,7 +427,7 @@ function ensureTimeline(brand: Brand) {
   ];
 }
 
-function buildCards(brand: Brand, quiz: QuizQuestion[]): Card[] {
+function buildCards(brand: Brand): Card[] {
   const cards: Card[] = [];
 
   cards.push({
@@ -490,25 +490,6 @@ function buildCards(brand: Brand, quiz: QuizQuestion[]): Card[] {
         descEn: e.descEn ?? e.desc,
       })),
     } as CardPayload,
-  });
-
-  quiz.slice(0, 2).forEach((q, i) => {
-    cards.push({
-      id: `c-quiz${i + 1}`,
-      type: "quiz",
-      title: "考考你",
-      titleEn: "Quick quiz",
-      payload: {
-        kind: "quiz",
-        question: q.question,
-        questionEn: q.questionEn,
-        options: q.options,
-        optionsEn: q.optionsEn,
-        correct: q.correct,
-        explanation: q.explanation,
-        explanationEn: q.explanationEn,
-      } as CardPayload,
-    });
   });
 
   return cards;
@@ -746,7 +727,7 @@ function buildQuiz(brand: Brand): QuizQuestion[] {
   for (const t of ordered) {
     const q = buildQuestion(brand, t);
     if (q) qs.push(q);
-    if (qs.length >= 4) break;
+    if (qs.length >= 6) break;
   }
 
   // guarantee at least 2 questions
@@ -819,8 +800,6 @@ function buildScript(brand: Brand, cards: Card[], sections: KnowledgeSection[]):
   add("host1", `${brand.name}的品牌时间线也很有意思，一路走来不容易呢。`, `${brand.nameEn}'s timeline is really interesting too — quite a journey.`, byId("c-timeline")?.id);
   if (marketingSection) add("host2", firstSentence(marketingSection.content), firstSentenceEn(marketingSection.contentEn));
   if (compSection) add("host1", firstSentence(compSection.content), firstSentenceEn(compSection.contentEn));
-  const q1 = byId("c-quiz1");
-  if (q1 && q1.payload.kind === "quiz") add("host2", `考考你：${q1.payload.question}`, `Quiz time: ${q1.payload.questionEn ?? q1.payload.question}`, q1.id);
   add("host1", `记住啦，${brand.name}的故事就讲到这儿！`, `Remember that — that's the story of ${brand.nameEn}!`);
   add("host2", `下次再见，Bye~ 👋`, `See you next time, bye! 👋`);
 
@@ -839,7 +818,7 @@ function buildScript(brand: Brand, cards: Card[], sections: KnowledgeSection[]):
 export function generateContent(brand: Brand): BrandContent {
   const sections = DIMENSIONS.map((d) => composeSection(brand, d));
   const quiz = buildQuiz(brand);
-  const cards = buildCards(brand, quiz);
+  const cards = buildCards(brand);
   const script = buildScript(brand, cards, sections);
   const related = getRelated(brand.slug).map((b) => b.slug);
 

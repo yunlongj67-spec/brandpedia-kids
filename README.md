@@ -15,7 +15,7 @@ BrandPedia Kids is built for **kids aged 6–14**. It uses AI to turn the brands
 - 🃏 **Flip cards**: Logo cards enlarge on hover and show the slogan; on click they flip to reveal a fun fact, then enter the detail page.
 - 🤖 **Explore new brands**: Type any brand name (e.g. "Pop Mart", "Mixue") and AI generates the full explainer, with a robot-flipping-through-a-book loading animation.
 - 📝 **Kid survey**: Ask kids what brand they want to learn — curated brands get an accurate intro, uncatalogued ones are generated on the fly by AI. The app remembers everyone's wishes.
-- 🧠 **Knowledge quiz**: 4 questions per brand, each with different question types, wording, and distractors, with a final score.
+- 🧠 **Knowledge quiz**: up to 6 questions per brand, each with different question types, wording, and distractors, with a final score.
 - 🌏 **Bilingual**: One-click Chinese / English UI toggle.
 - 🔍 **Debounced search + suggestion dropdown**.
 

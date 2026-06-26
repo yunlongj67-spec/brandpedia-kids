@@ -20,7 +20,7 @@ From a Starbucks coffee to a Disneyland ticket, from a pair of Nike sneakers to 
 1. **Home · Brand Logo Wall**: A playful brand grid (food & beverage / entertainment / technology / sports / retail / transport / other). Logos enlarge on hover and show their slogan; clicking flips to a fun fact, then enters the detail page.
 2. **Brand detail · Podcast + illustrated cards**:
    - **Voice podcast mode**: Two virtual hosts explain the brand conversationally, 3–5 minutes, in kid-friendly language.
-   - **Illustrated card flow**: Image-text, animated data charts, fun quiz, and timeline cards that auto-highlight in sync with the podcast.
+   - **Illustrated card flow**: Image-text, animated data charts, and timeline cards that auto-highlight in sync with the podcast.
    - A bottom Mini Player supports play/pause, scrubbing, and speed control (0.8x / 1x / 1.2x).
 3. **Custom brand exploration**: Type any brand a kid is curious about, and the backend AI generates the full explainer with a robot-loading animation, then redirects to the detail page.
 
@@ -40,7 +40,7 @@ Every brand is explained across six angles: Brand Story, Product Thinking, Money
 - **Audio**: Browser Web Speech API (default, zero-config) + ElevenLabs/Azure adapter (optional).
 - **AI**: LLM script generation + TTS audio + DALL·E images (all optionally enabled by key, with offline template fallbacks).
 - **Storage**: Local JSON (default) + Supabase adapter (optional).
-- **Design**: Out-of-the-box runtime + real-service adapters waiting to be activated; bilingual.
+- **Design**: Out-of-the-box runtime + real-service adapters waiting to be activated; bilingual (English by default, Chinese one tap away).
 
 ## Content safety & responsibility
 
