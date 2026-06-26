@@ -46,9 +46,20 @@ cp .env.example .env.local
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start the dev server |
+| `npm run dev` | Start the dev server → http://localhost:3000 |
 | `npm run build` | Production build |
 | `npm run start` | Run the production server |
+
+**Start & stop cleanly.** Always stop the dev server with `Ctrl + C` before closing the terminal or starting another. If the page ever loads blank or buttons stop responding, a `next` process was left running — kill it and restart:
+
+```bash
+pkill -f next        # or:  lsof -ti:3000 | xargs kill -9
+npm run dev          # one clean server
+```
+
+**Open from another device on your Wi-Fi.** Next.js prints a **Network** URL on startup (e.g. `http://192.168.x.x:3000`); open it in your phone/iPad browser (both devices on the same network). If it won't load, bind to all interfaces: `npm run dev -- -H 0.0.0.0`.
+
+See [`docs/installation-and-deployment.md`](./docs/installation-and-deployment.md) → *Starting & stopping the server* for full details.
 
 ---
 

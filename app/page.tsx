@@ -31,8 +31,8 @@ export default function Home() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-16 xl:max-w-7xl">
         {/* hero */}
         <motion.section
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 16 }}
+          animate={{ y: 0 }}
           className="relative mb-6 overflow-hidden rounded-3xl border-2 border-white bg-gradient-to-br from-bpk-primary via-[#ff9a76] to-bpk-pink p-6 text-white shadow-[0_12px_36px_rgba(255,122,89,0.35)] sm:p-10"
         >
           <div className="relative z-10 max-w-2xl">

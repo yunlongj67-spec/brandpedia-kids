@@ -70,7 +70,7 @@ export function LoadingRobot({ progress }: { progress: number }) {
 
       <motion.p
         key={stepIdx}
-        initial={{ opacity: 0, y: 6 }}
+        initial={{ y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center text-lg font-extrabold text-bpk-ink"
       >

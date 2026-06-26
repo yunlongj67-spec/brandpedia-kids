@@ -61,7 +61,7 @@ export function QuizCard({
       <AnimatePresence>
         {answered ? (
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             className={clsx(
               "rounded-2xl p-3 text-sm font-semibold",

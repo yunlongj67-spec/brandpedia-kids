@@ -88,7 +88,7 @@ function ExploreInner() {
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 pb-16 pt-4">
         {status === "idle" ? (
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="rounded-3xl border-2 border-white bg-white p-6 shadow-[0_12px_36px_rgba(43,42,76,0.12)] sm:p-8"
           >
@@ -137,7 +137,7 @@ function ExploreInner() {
 
         {status === "loading" ? (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             className="rounded-3xl border-2 border-white bg-white p-6 shadow-[0_12px_36px_rgba(43,42,76,0.12)]"
           >
@@ -153,7 +153,7 @@ function ExploreInner() {
 
         {status === "done" && resultSlug ? (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="rounded-3xl border-2 border-white bg-white p-8 text-center shadow-[0_12px_36px_rgba(43,42,76,0.12)]"
           >
@@ -172,7 +172,7 @@ function ExploreInner() {
 
         {status === "error" ? (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             className="rounded-3xl border-2 border-white bg-white p-8 text-center shadow-[0_12px_36px_rgba(43,42,76,0.12)]"
           >

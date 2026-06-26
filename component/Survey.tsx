@@ -120,7 +120,7 @@ export function Survey() {
       <AnimatePresence mode="wait">
         {/* STEP 1 — category */}
         {step === 1 ? (
-          <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+          <motion.div key="s1" initial={{ x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <h2 className="text-center text-xl font-extrabold text-bpk-ink sm:text-2xl">
               {t("surveyStep1")}
             </h2>
@@ -154,7 +154,7 @@ export function Survey() {
 
         {/* STEP 2 — story type */}
         {step === 2 ? (
-          <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+          <motion.div key="s2" initial={{ x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <h2 className="text-center text-xl font-extrabold text-bpk-ink sm:text-2xl">
               {t("surveyStep2")}
             </h2>
@@ -185,7 +185,7 @@ export function Survey() {
 
         {/* STEP 3 — type a brand */}
         {step === 3 ? (
-          <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+          <motion.div key="s3" initial={{ x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <h2 className="text-center text-xl font-extrabold text-bpk-ink sm:text-2xl">
               {t("surveyStep3")}
             </h2>
@@ -224,7 +224,7 @@ export function Survey() {
         {step === "result" ? (
           <motion.div
             key="result"
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             className="space-y-5"
           >

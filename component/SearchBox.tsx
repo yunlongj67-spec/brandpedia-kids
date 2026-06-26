@@ -81,7 +81,7 @@ export function SearchBox({ className }: { className?: string }) {
         <AnimatePresence>
           {open && (results.length > 0 || showExplore) ? (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               className="absolute z-30 mt-2 w-full overflow-hidden rounded-2xl border-2 border-white bg-white shadow-[0_12px_36px_rgba(43,42,76,0.16)]"

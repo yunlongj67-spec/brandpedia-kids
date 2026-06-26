@@ -26,8 +26,8 @@ export function BrandCard({ brand, index = 0 }: { brand: Brand; index?: number }
       onClick={go}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      initial={{ opacity: 0, y: 24, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ y: 24, scale: 0.9 }}
+      animate={{ y: 0, scale: 1 }}
       transition={{ delay: Math.min(index * 0.03, 0.6), type: "spring", stiffness: 260, damping: 20 }}
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.97 }}

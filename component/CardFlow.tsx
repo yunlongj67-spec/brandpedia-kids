@@ -69,7 +69,7 @@ export function CardFlow({
             <motion.div
               key={card.id}
               custom={dir}
-              initial={{ opacity: 0, x: dir * 60 }}
+              initial={{ x: dir * 60 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: dir * -60 }}
               transition={{ duration: 0.28, ease: "easeOut" }}

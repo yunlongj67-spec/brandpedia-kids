@@ -55,7 +55,7 @@ export function Broadcastplayer({
               <AnimatePresence mode="wait">
                 <motion.span
                   key={host.emoji + seg?.id}
-                  initial={{ scale: 0.6, opacity: 0 }}
+                  initial={{ scale: 0.6 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold text-white"

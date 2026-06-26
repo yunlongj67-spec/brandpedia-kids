@@ -45,7 +45,7 @@ export function Quiz({ questions, color }: { questions: QuizQuestion[]; color: s
     const emoji = pct >= 80 ? "🏆" : pct >= 50 ? "🌟" : "💪";
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className="rounded-3xl border-2 border-white bg-white p-8 text-center shadow-[0_10px_30px_rgba(43,42,76,0.10)]"
       >
@@ -79,7 +79,7 @@ export function Quiz({ questions, color }: { questions: QuizQuestion[]; color: s
       <AnimatePresence mode="wait">
         <motion.div
           key={q.id}
-          initial={{ opacity: 0, x: 20 }}
+          initial={{ x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
         >
@@ -117,7 +117,7 @@ export function Quiz({ questions, color }: { questions: QuizQuestion[]; color: s
           <AnimatePresence>
             {answered ? (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
+                initial={{ height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 className="mt-3 overflow-hidden"
               >

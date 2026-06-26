@@ -50,7 +50,7 @@ export function Branddetail({ content }: { content: BrandContent }) {
 
       {/* hero */}
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative overflow-hidden rounded-3xl border-2 border-white p-6 shadow-[0_12px_36px_rgba(43,42,76,0.12)] sm:p-8"
         style={{ background: `linear-gradient(135deg, ${brand.color}, ${brand.color}cc)` }}
@@ -153,7 +153,7 @@ export function Branddetail({ content }: { content: BrandContent }) {
           {sections.map((s) => (
             <motion.div
               key={s.dimension}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="rounded-3xl border-2 border-white bg-white p-5 shadow-[0_8px_24px_rgba(43,42,76,0.08)]"

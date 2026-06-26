@@ -48,6 +48,37 @@ npm run build    # production build
 npm run start    # run the production server
 ```
 
+### Starting & stopping the server (open / close)
+
+Always **open** and **close** the server cleanly so no `next` process is left running in the background.
+
+**Start (open) the dev server**
+```bash
+npm run dev      # → http://localhost:3000
+```
+Keep that terminal open while you work; the server hot-reloads on file changes.
+
+**Stop (close) the dev server**
+- In the terminal where it is running, press `Ctrl + C`.
+- Stop it with `Ctrl + C` **before** closing the terminal or starting another server. If you just close the terminal window, the `next` process can keep running in the background and hold port 3000 — which causes the blank-page / dead-buttons issue below.
+
+**If port 3000 is in use, or the page loads blank and buttons stop responding**
+A previous `next` process did not shut down. Kill it, then start one fresh server:
+```bash
+# macOS / Linux — kill whatever is holding port 3000 (or any stray next process)
+lsof -ti:3000 | xargs kill -9      # alternative:  pkill -f next
+
+npm run dev                       # then start one clean server
+```
+> Symptom: the header renders but the page body is blank and nothing is clickable. This is a **hung or duplicate dev server, not a code bug**. A clean restart plus a hard refresh in the browser (`Cmd/Ctrl + Shift + R`) fixes it.
+
+**Production server (open / close)**
+```bash
+npm run build && npm run start     # open (default port 3000)
+# Ctrl + C in that terminal to close it
+# custom port: PORT=8080 npm run start
+```
+
 ### Local data
 
 - `data/brands.json`: AI-generated brand content (keyed by slug).
@@ -134,3 +165,9 @@ A: Serverless filesystems are read-only. Enable Supabase storage (see step 5).
 
 **Q: How do I reset all generated content?**
 A: Locally, delete `data/brands.json` and `data/search-history.json`; in Supabase mode, clear the corresponding tables.
+
+**Q: The page loads blank and the header buttons don't respond.**
+A: A dev server is probably hung or duplicated. Stop all servers (`Ctrl + C`, then `pkill -f next`), start one with `npm run dev`, and hard-refresh the browser (`Cmd/Ctrl + Shift + R`). See *Starting & stopping the server* above.
+
+**Q: How do I open the site from my phone / iPad on the same Wi-Fi?**
+A: The dev server is reachable on your LAN at the **Network** URL Next.js prints on startup (e.g. `http://192.168.x.x:3000`). Open that URL in the other device's browser. Both devices must be on the same network. If it won't load, start the server bound to all interfaces: `npm run dev -- -H 0.0.0.0`.
