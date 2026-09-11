@@ -83,6 +83,7 @@ export function usePodcastPlayer(script: PodcastScript, opts: PlayerOptions = {}
   const audioElRef = useRef<HTMLAudioElement | null>(null);
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timer = useRef(0); // ms elapsed in current segment
+  const speakLaunchRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const audioMode = audioMap.mode === "audio" && !!audioMap.segments;
 
@@ -113,11 +114,12 @@ export function usePodcastPlayer(script: PodcastScript, opts: PlayerOptions = {}
       setReady(true);
       return;
     }
+    const synth = window.speechSynthesis;
     const load = () => {
-      if (window.speechSynthesis.getVoices().length) setReady(true);
+      if (synth.getVoices().length) setReady(true);
     };
     load();
-    window.speechSynthesis.onvoiceschanged = load;
+    synth.onvoiceschanged = load;
     return () => {
       if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = null;
     };
@@ -157,6 +159,10 @@ export function usePodcastPlayer(script: PodcastScript, opts: PlayerOptions = {}
   };
 
   const stopAll = useCallback(() => {
+    if (speakLaunchRef.current) {
+      clearTimeout(speakLaunchRef.current);
+      speakLaunchRef.current = null;
+    }
     if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
     if (audioElRef.current) {
       audioElRef.current.pause();
@@ -198,26 +204,43 @@ export function usePodcastPlayer(script: PodcastScript, opts: PlayerOptions = {}
         };
         el.play().catch(() => {});
       } else if (typeof window !== "undefined" && window.speechSynthesis) {
-        const [v1, v2] = pickHostVoices(lang);
-        const text = lang === "en" ? (seg.textEn ?? seg.text) : seg.text;
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = lang === "en" ? "en-US" : "zh-CN";
-        u.rate = speed;
-        const voice = seg.speaker === "host1" ? v1 : v2;
-        if (voice) {
-          u.voice = voice;
-          u.pitch = seg.speaker === "host1" ? 1.15 : 0.85;
-        }
-        u.onend = () => {
+        const synth = window.speechSynthesis;
+        const sayIt = (attempt: number) => {
+          speakLaunchRef.current = null;
           if (!playingRef.current) return;
-          playIndex(i + 1);
+          // Safari / some Chromium builds expose voices only moments later;
+          // wait briefly so we can actually bind a distinct host voice.
+          if (!synth.getVoices().length && attempt < 8) {
+            speakLaunchRef.current = setTimeout(() => sayIt(attempt + 1), 120);
+            return;
+          }
+          const [v1, v2] = pickHostVoices(lang);
+          const text = lang === "en" ? (seg.textEn ?? seg.text) : seg.text;
+          const u = new SpeechSynthesisUtterance(text);
+          u.lang = lang === "en" ? "en-US" : "zh-CN";
+          u.rate = speed;
+          const voice = seg.speaker === "host1" ? v1 : v2;
+          if (voice) {
+            u.voice = voice;
+            u.pitch = seg.speaker === "host1" ? 1.15 : 0.85;
+          }
+          u.onend = () => {
+            if (!playingRef.current) return;
+            playIndex(i + 1);
+          };
+          u.onerror = () => {
+            if (playingRef.current) playIndex(i + 1);
+          };
+          utterRef.current = u;
+          synth.speak(u);
+          // Chrome often leaves the queue "paused" right after cancel()/enqueue;
+          // resume() nudges it so the first segment is not silent.
+          synth.resume();
         };
-        u.onerror = () => {
-          if (playingRef.current) playIndex(i + 1);
-        };
-        utterRef.current = u;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(u);
+        synth.cancel();
+        // Flush the cancel() before enqueuing — calling speak() synchronously
+        // right after cancel() is silently dropped in several Chromium versions.
+        speakLaunchRef.current = setTimeout(() => sayIt(0), 80);
       } else {
         // no speech support at all — advance on a timer
         setTimeout(() => playingRef.current && playIndex(i + 1), est * 1000);

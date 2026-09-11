@@ -39,7 +39,7 @@ export function Branddetail({ content }: { content: BrandContent }) {
     .slice(0, 4);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-44 pt-6 sm:pb-36">
+    <div className="mx-auto max-w-5xl px-4 pb-52 pt-6 sm:pb-44">
       {/* back */}
       <Link
         href="/"

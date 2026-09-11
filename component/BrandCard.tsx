@@ -1,96 +1,77 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowUpRight, Headphones } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Brand } from "@/lib/types";
 import { CATEGORY_LABELS } from "@/lib/types";
 import { useI18n } from "@/lib/i18n";
 
+const PAPER_COLORS = ["#ffffff", "#fff8e4", "#f2efff", "#ecfbf5"] as const;
+
 export function BrandCard({ brand, index = 0 }: { brand: Brand; index?: number }) {
-  const router = useRouter();
   const { lang, pick } = useI18n();
-  const [flipped, setFlipped] = useState(false);
-  const [hovered, setHovered] = useState(false);
-
-  const go = () => {
-    setFlipped(true);
-    setTimeout(() => router.push(`/brand/${brand.slug}`), 1300);
-  };
-
+  const reduceMotion = useReducedMotion();
   const cat = CATEGORY_LABELS[brand.category][lang];
 
   return (
-    <motion.button
-      type="button"
-      onClick={go}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      initial={{ y: 24, scale: 0.9 }}
-      animate={{ y: 0, scale: 1 }}
-      transition={{ delay: Math.min(index * 0.03, 0.6), type: "spring", stiffness: 260, damping: 20 }}
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.97 }}
-      className="relative h-44 w-full cursor-pointer text-left [perspective:1200px]"
-      aria-label={`${pick(brand.name, brand.nameEn)} — ${pick(brand.slogan, brand.sloganEn)}`}
+    <motion.article
+      layout
+      initial={reduceMotion ? false : { y: 18, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: Math.min(index * 0.025, 0.35), duration: 0.35 }}
     >
-      <motion.div
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-        className="preserve-3d relative h-full w-full"
+      <Link
+        href={`/brand/${brand.slug}`}
+        className="group relative flex min-h-64 flex-col overflow-hidden rounded-[1.65rem] border-2 border-bpk-ink p-5 shadow-[4px_4px_0_#2b2a4c] transition-transform hover:-translate-y-1"
+        style={{ backgroundColor: PAPER_COLORS[index % PAPER_COLORS.length] }}
+        aria-label={`${pick(brand.name, brand.nameEn)} — ${pick(brand.slogan, brand.sloganEn)}`}
       >
-        {/* FRONT */}
         <div
-          className="backface-hidden absolute inset-0 flex flex-col items-center justify-center rounded-3xl border-2 border-white bg-white shadow-[0_10px_30px_rgba(43,42,76,0.10)]"
-          style={{ borderTopColor: brand.color, borderTopWidth: 6 }}
-        >
-          <div
-            className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full"
-            style={{ backgroundColor: brand.color }}
-          />
-          <motion.div
-            animate={hovered ? { rotate: [0, -8, 8, 0], scale: 1.1 } : { rotate: 0, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-6xl drop-shadow-sm"
+          className="absolute inset-x-0 top-0 h-2"
+          style={{ backgroundColor: brand.color }}
+          aria-hidden="true"
+        />
+
+        <div className="flex items-start justify-between gap-3">
+          <span
+            className="flex h-16 w-16 items-center justify-center rounded-[1.25rem] border-2 border-bpk-ink text-4xl transition-transform duration-300 group-hover:rotate-[-6deg] group-hover:scale-105"
+            style={{ backgroundColor: `${brand.color}18` }}
           >
             {brand.logo}
-          </motion.div>
-          <div className="mt-2 text-lg font-extrabold text-bpk-ink">
-            {pick(brand.name, brand.nameEn)}
-          </div>
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: hovered ? 1 : 0,
-              y: hovered ? 0 : 6,
-              height: hovered ? "auto" : 0,
-            }}
-            className="overflow-hidden px-3 text-center text-xs font-semibold text-bpk-muted"
-          >
-            {pick(brand.slogan, brand.sloganEn)}
-          </motion.div>
+          </span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-bpk-ink bg-white text-bpk-ink transition-colors group-hover:bg-bpk-sun">
+            <ArrowUpRight size={18} strokeWidth={3} />
+          </span>
+        </div>
+
+        <div className="mt-5">
           <span
-            className="absolute bottom-2 left-2 rounded-full px-2 py-0.5 text-[10px] font-bold text-white"
+            className="inline-flex rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-white"
             style={{ backgroundColor: brand.color }}
           >
             {cat}
           </span>
+          <h3 className="mt-3 text-xl font-black tracking-[-0.025em] text-bpk-ink">
+            {pick(brand.name, brand.nameEn)}
+          </h3>
+          <p className="mt-1 line-clamp-2 text-sm font-bold leading-5 text-bpk-muted">
+            {pick(brand.slogan, brand.sloganEn)}
+          </p>
         </div>
 
-        {/* BACK */}
-        <div
-          className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-3xl p-4 text-center shadow-[0_10px_30px_rgba(43,42,76,0.10)]"
-          style={{ backgroundColor: brand.color }}
-        >
-          <div className="text-3xl">💡</div>
-          <p className="text-sm font-bold leading-snug text-white">
-            {pick(brand.funFact, brand.funFactEn ?? brand.description)}
-          </p>
-          <span className="mt-1 rounded-full bg-white/25 px-3 py-1 text-xs font-bold text-white">
-            {lang === "zh" ? "点我进去看故事 →" : "Tap to read →"}
+        <div className="mt-auto flex items-center justify-between border-t-2 border-dashed border-bpk-ink/15 pt-4">
+          <span className="inline-flex items-center gap-1.5 text-xs font-black text-bpk-muted">
+            <Headphones size={15} strokeWidth={3} />
+            {lang === "zh" ? "听故事" : "Hear the story"}
           </span>
+          {brand.featured ? (
+            <span className="rounded-full bg-bpk-sun px-2 py-1 text-[10px] font-black uppercase tracking-wider text-bpk-ink">
+              {lang === "zh" ? "精选" : "Featured"}
+            </span>
+          ) : null}
         </div>
-      </motion.div>
-    </motion.button>
+      </Link>
+    </motion.article>
   );
 }

@@ -9,7 +9,7 @@ export function LanguageToggle({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        "inline-flex items-center rounded-full border-2 border-bpk-line bg-white p-0.5",
+        "inline-flex items-center rounded-xl border-2 border-bpk-ink bg-white p-0.5",
         className,
       )}
     >
@@ -18,8 +18,8 @@ export function LanguageToggle({ className }: { className?: string }) {
           key={l}
           onClick={() => setLang(l)}
           className={clsx(
-            "rounded-full px-3 py-1 text-sm font-bold transition-colors cursor-pointer",
-            lang === l ? "bg-bpk-primary text-white" : "text-bpk-muted hover:text-bpk-ink",
+            "rounded-lg px-2.5 py-1 text-xs font-black transition-colors cursor-pointer sm:text-sm",
+            lang === l ? "bg-bpk-ink text-white" : "text-bpk-muted hover:text-bpk-ink",
           )}
           aria-pressed={lang === l}
         >

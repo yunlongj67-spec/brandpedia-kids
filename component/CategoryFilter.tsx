@@ -5,12 +5,12 @@ import { CATEGORIES, CATEGORY_LABELS, type Category } from "@/lib/types";
 import { useI18n } from "@/lib/i18n";
 
 const CAT_ICON: Record<Category | "all", string> = {
-  all: "🌈",
+  all: "✦",
   "food-beverage": "🍔",
   entertainment: "🎬",
   technology: "💻",
   sports: "⚽",
-  retail: "🛒",
+  retail: "🛍️",
   transport: "🚗",
   other: "🎁",
 };
@@ -20,29 +20,35 @@ export function CategoryFilter({
   onChange,
 }: {
   value: Category | "all";
-  onChange: (c: Category | "all") => void;
+  onChange: (category: Category | "all") => void;
 }) {
   const { lang, t } = useI18n();
   const items: (Category | "all")[] = ["all", ...CATEGORIES];
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {items.map((c) => {
-        const active = value === c;
+    <div
+      className="flex snap-x gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      aria-label={lang === "zh" ? "品牌分类" : "Brand categories"}
+    >
+      {items.map((category) => {
+        const active = value === category;
         return (
           <button
-            key={c}
-            onClick={() => onChange(c)}
+            key={category}
+            type="button"
+            onClick={() => onChange(category)}
+            aria-pressed={active}
             className={clsx(
-              "inline-flex items-center gap-1.5 rounded-full border-2 px-3.5 py-1.5 text-sm font-extrabold transition-all cursor-pointer",
+              "inline-flex shrink-0 snap-start items-center gap-1.5 rounded-xl border-2 border-bpk-ink px-3.5 py-2 text-sm font-black transition-all",
               active
-                ? "border-transparent text-white shadow-[0_4px_0_rgba(0,0,0,0.12)]"
-                : "border-bpk-line bg-white text-bpk-ink hover:border-bpk-primary",
+                ? "translate-y-[-2px] bg-bpk-secondary text-white shadow-[3px_3px_0_#2b2a4c]"
+                : "bg-white text-bpk-ink hover:bg-bpk-sun",
             )}
-            style={active ? { backgroundColor: "#6c5ce7" } : undefined}
           >
-            <span>{CAT_ICON[c]}</span>
-            <span>{c === "all" ? t("allCategories") : CATEGORY_LABELS[c][lang]}</span>
+            <span>{CAT_ICON[category]}</span>
+            <span>
+              {category === "all" ? t("allCategories") : CATEGORY_LABELS[category][lang]}
+            </span>
           </button>
         );
       })}

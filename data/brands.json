@@ -1,3 +1,377 @@
 {
-  "brands": {}
+  "brands": {
+    "tal": {
+      "brand": {
+        "id": "tal",
+        "name": "tal",
+        "nameEn": "tal",
+        "slug": "tal",
+        "category": "other",
+        "logo": "🌟",
+        "color": "#EC4899",
+        "slogan": "一起认识tal",
+        "sloganEn": "Get to know tal",
+        "description": "tal是一个你想了解的品牌。AI 正在用小朋友听得懂的方式，给你讲讲它的故事。",
+        "descriptionEn": "tal is a brand you want to learn about. AI explains it in a kid-friendly way.",
+        "featured": false,
+        "generated": true,
+        "funFact": "关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！",
+        "funFactEn": "AI prepared some fun facts about tal — keep reading!",
+        "keyFacts": [
+          "tal有很多值得讲的故事",
+          "它有自己的产品和服务",
+          "它也在和对手们竞争",
+          "它的营销方式很有意思"
+        ],
+        "keyFactsEn": [
+          "tal has lots of stories worth telling",
+          "It has its own products and services",
+          "It competes with rivals too",
+          "Its marketing is really interesting"
+        ]
+      },
+      "sections": [
+        {
+          "dimension": "brand-story",
+          "title": "品牌故事",
+          "titleEn": "Brand Story",
+          "content": "每个大品牌都从一个想法开始，tal也是。tal有很多值得讲的故事。",
+          "contentEn": "Every big brand starts with an idea, and so did tal. tal has lots of stories worth telling.",
+          "keyPoints": [
+            "每个大品牌都从一个想法开始，tal也是。",
+            "tal有很多值得讲的故事。"
+          ],
+          "keyPointsEn": [
+            "Every big brand starts with an idea, and so did tal.",
+            "tal has lots of stories worth telling."
+          ]
+        },
+        {
+          "dimension": "product-thinking",
+          "title": "产品思维",
+          "titleEn": "Product Thinking",
+          "content": "tal卖的不只是东西，更是一种让你喜欢的感觉。它有自己的产品和服务。它先把\"你需要什么\"想清楚，再做成又好用又好看的样子。",
+          "contentEn": "tal doesn't just sell things — it sells a feeling you love. It has its own products and services. It figures out what you need, then makes it easy and fun to use.",
+          "keyPoints": [
+            "tal卖的不只是东西，更是一种让你喜欢的感觉。",
+            "它有自己的产品和服务。",
+            "它先把\"你需要什么\"想清楚，再做成又好用又好看的样子。"
+          ],
+          "keyPointsEn": [
+            "tal doesn't just sell things — it sells a feeling you love.",
+            "It has its own products and services.",
+            "It figures out what you need, then makes it easy and fun to use."
+          ]
+        },
+        {
+          "dimension": "money-logic",
+          "title": "赚钱逻辑",
+          "titleEn": "Money Logic",
+          "content": "tal的生意经其实是\"薄利多销\"——单件赚不多，但卖给成千上万的人，数字就很惊人。它也在和对手们竞争。",
+          "contentEn": "tal's secret is \"small margin, huge volume\" — it earns little per item, but sells to millions, so the total is huge. It competes with rivals too.",
+          "keyPoints": [
+            "tal的生意经其实是\"薄利多销\"——单件赚不多，但卖给成千上万的人，数字就很惊人。",
+            "它也在和对手们竞争。"
+          ],
+          "keyPointsEn": [
+            "tal's secret is \"small margin, huge volume\" — it earns little per item, but sells to mi…",
+            "It competes with rivals too."
+          ]
+        },
+        {
+          "dimension": "marketing-magic",
+          "title": "营销魔法",
+          "titleEn": "Marketing Magic",
+          "content": "营销就像变魔术，悄悄让你喜欢上tal。记住\"一起认识tal\"这句话，就记住了它的感觉。",
+          "contentEn": "Marketing is like magic that quietly makes you like tal. Remember \"Get to know tal\" and you remember how it feels..",
+          "keyPoints": [
+            "营销就像变魔术，悄悄让你喜欢上tal。",
+            "记住\"一起认识tal\"这句话，就记住了它的感觉。"
+          ],
+          "keyPointsEn": [
+            "Marketing is like magic that quietly makes you like tal.",
+            "Remember \"Get to know tal\" and you remember how it feels.",
+            "."
+          ]
+        },
+        {
+          "dimension": "competition",
+          "title": "竞争关系",
+          "titleEn": "Competition",
+          "content": "tal也有对手哦。同一个行业里，总有好几家公司比赛。它的营销方式很有意思。比赛让它们都变得更强，你才能买到越来越好的东西。",
+          "contentEn": "tal has rivals too. In the same industry, several companies always compete. Its marketing is really interesting. Competition makes them all stronger, so you get better and better things.",
+          "keyPoints": [
+            "tal也有对手哦。",
+            "同一个行业里，总有好几家公司比赛。",
+            "它的营销方式很有意思。"
+          ],
+          "keyPointsEn": [
+            "tal has rivals too.",
+            "In the same industry, several companies always compete.",
+            "Its marketing is really interesting."
+          ]
+        },
+        {
+          "dimension": "fun-data",
+          "title": "趣味数据",
+          "titleEn": "Fun Data",
+          "content": "tal有一些超有趣的数字！关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！这些数字会让你一下就记住它。",
+          "contentEn": "tal has some super-fun numbers! AI prepared some fun facts about tal — keep reading! These numbers will make it stick in your mind.",
+          "keyPoints": [
+            "tal有很多值得讲的故事",
+            "它有自己的产品和服务",
+            "它也在和对手们竞争"
+          ],
+          "keyPointsEn": [
+            "tal has lots of stories worth telling",
+            "It has its own products and services",
+            "It competes with rivals too"
+          ],
+          "funFact": "关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！",
+          "funFactEn": "AI prepared some fun facts about tal — keep reading!"
+        }
+      ],
+      "script": {
+        "brandId": "tal",
+        "host1Name": "乐乐",
+        "host2Name": "问问",
+        "host1NameEn": "Foxy",
+        "host2NameEn": "Bun",
+        "segments": [
+          {
+            "speaker": "host1",
+            "text": "欢迎来到 BrandPedia Kids！我是乐乐。",
+            "textEn": "Welcome to BrandPedia Kids! I'm Foxy.",
+            "cardId": "c-intro",
+            "id": "s1"
+          },
+          {
+            "speaker": "host2",
+            "text": "我是问问！今天我们要聊的品牌是——tal！🌟",
+            "textEn": "And I'm Bun! Today we're talking about — tal! 🌟",
+            "id": "s2"
+          },
+          {
+            "speaker": "host1",
+            "text": "你知道吗？关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！",
+            "textEn": "Did you know? AI prepared some fun facts about tal — keep reading!",
+            "cardId": "c-story",
+            "id": "s3"
+          },
+          {
+            "speaker": "host2",
+            "text": "它是怎么来的呢？每个大品牌都从一个想法开始，tal也是。",
+            "textEn": "How did it begin? Every big brand starts with an idea, and so did tal.",
+            "id": "s4"
+          },
+          {
+            "speaker": "host1",
+            "text": "tal有很多值得讲的故事。",
+            "textEn": "tal has lots of stories worth telling.",
+            "id": "s5"
+          },
+          {
+            "speaker": "host2",
+            "text": "那tal是怎么赚钱的呢？",
+            "textEn": "So how does tal make money?",
+            "id": "s6"
+          },
+          {
+            "speaker": "host1",
+            "text": "tal的生意经其实是\"薄利多销\"——单件赚不多，但卖给成千上万的人，数字就很惊人。",
+            "textEn": "tal's secret is \"small margin, huge volume\" — it earns little per item, but sells to millions, so the total is huge.",
+            "cardId": "c-chart",
+            "id": "s7"
+          },
+          {
+            "speaker": "host2",
+            "text": "看这个数据：品牌年龄就有10岁！厉害吧？",
+            "textEn": "Look at this: Brand age is 10 yrs! Cool, right?",
+            "cardId": "c-chart",
+            "id": "s8"
+          },
+          {
+            "speaker": "host1",
+            "text": "tal的品牌时间线也很有意思，一路走来不容易呢。",
+            "textEn": "tal's timeline is really interesting too — quite a journey.",
+            "cardId": "c-timeline",
+            "id": "s9"
+          },
+          {
+            "speaker": "host2",
+            "text": "营销就像变魔术，悄悄让你喜欢上tal。",
+            "textEn": "Marketing is like magic that quietly makes you like tal.",
+            "id": "s10"
+          },
+          {
+            "speaker": "host1",
+            "text": "tal也有对手哦。",
+            "textEn": "tal has rivals too.",
+            "id": "s11"
+          },
+          {
+            "speaker": "host1",
+            "text": "记住啦，tal的故事就讲到这儿！",
+            "textEn": "Remember that — that's the story of tal!",
+            "id": "s12"
+          },
+          {
+            "speaker": "host2",
+            "text": "下次再见，Bye~ 👋",
+            "textEn": "See you next time, bye! 👋",
+            "id": "s13"
+          }
+        ]
+      },
+      "cards": [
+        {
+          "id": "c-intro",
+          "type": "image-text",
+          "title": "tal",
+          "titleEn": "tal",
+          "payload": {
+            "kind": "image-text",
+            "emoji": "🌟",
+            "text": "tal是一个你想了解的品牌。AI 正在用小朋友听得懂的方式，给你讲讲它的故事。",
+            "textEn": "tal is a brand you want to learn about. AI explains it in a kid-friendly way."
+          }
+        },
+        {
+          "id": "c-story",
+          "type": "image-text",
+          "title": "它是怎么来的",
+          "titleEn": "How it began",
+          "payload": {
+            "kind": "image-text",
+            "emoji": "📖",
+            "text": "关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！",
+            "textEn": "AI prepared some fun facts about tal — keep reading!"
+          }
+        },
+        {
+          "id": "c-chart",
+          "type": "chart",
+          "title": "趣味数据",
+          "titleEn": "Fun numbers",
+          "payload": {
+            "kind": "chart",
+            "chartType": "bar",
+            "unit": "岁",
+            "unitEn": "yrs",
+            "labels": [
+              "品牌年龄",
+              "成立年份"
+            ],
+            "labelsEn": [
+              "Brand age",
+              "Founded"
+            ],
+            "values": [
+              10,
+              2000
+            ],
+            "caption": "看看tal的几个有趣数字",
+            "captionEn": "Some fun numbers about tal"
+          }
+        },
+        {
+          "id": "c-timeline",
+          "type": "timeline",
+          "title": "品牌时间线",
+          "titleEn": "Timeline",
+          "payload": {
+            "kind": "timeline",
+            "events": [
+              {
+                "year": "—",
+                "title": "品牌诞生",
+                "titleEn": "Brand born",
+                "desc": "tal在远方创立",
+                "descEn": "tal was founded in the world."
+              },
+              {
+                "year": "今天",
+                "title": "家喻户晓",
+                "titleEn": "A household name",
+                "desc": "tal有很多值得讲的故事",
+                "descEn": "tal has lots of stories worth telling"
+              }
+            ]
+          }
+        }
+      ],
+      "quiz": [
+        {
+          "id": "q-funfact",
+          "question": "下面哪句话说的才是tal？",
+          "questionEn": "Which of these is really about tal?",
+          "options": [
+            "任天堂最早是做花札（日本纸牌）的，1889年成立，过了快80年才开始做游戏。",
+            "学而思最早是一个北大学生办的数学小辅导班，后来变成好未来集团。",
+            "关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！",
+            "微软最早是为个人电脑写BASIC语言解释器；Windows最初的名字叫“Interface Manager”。"
+          ],
+          "optionsEn": [
+            "Nintendo started in 1889 making Japanese playing cards — games came almost 80 years later.",
+            "Xueersi started as a small math class by a student; it grew into TAL Education Group.",
+            "AI prepared some fun facts about tal — keep reading!",
+            "Microsoft started writing BASIC interpreters; Windows was first called 'Interface Manager'."
+          ],
+          "correct": 2,
+          "explanation": "关于tal，AI 给你准备了一些有趣的小知识，快往下看吧！",
+          "explanationEn": "AI prepared some fun facts about tal — keep reading!",
+          "dimension": "fun-data"
+        },
+        {
+          "id": "q-slogan",
+          "question": "哪句话最能代表tal？",
+          "questionEn": "Which line best stands for tal?",
+          "options": [
+            "更好的移动方式",
+            "只有最好的才够好",
+            "世界上最快乐的地方",
+            "一起认识tal"
+          ],
+          "optionsEn": [
+            "A Better Way Forward",
+            "Only the Best is Good Enough",
+            "The Happiest Place on Earth",
+            "Get to know tal"
+          ],
+          "correct": 3,
+          "explanation": "tal的口号是\"一起认识tal\"。",
+          "explanationEn": "tal's slogan is \"Get to know tal\".",
+          "dimension": "marketing-magic"
+        },
+        {
+          "id": "q-category",
+          "question": "tal是哪一类品牌？",
+          "questionEn": "What kind of brand is tal?",
+          "options": [
+            "科技",
+            "其他",
+            "娱乐",
+            "食品饮料"
+          ],
+          "optionsEn": [
+            "Technology",
+            "Other",
+            "Entertainment",
+            "Food & Drink"
+          ],
+          "correct": 1,
+          "explanation": "tal属于其他。",
+          "explanationEn": "tal is in the Other category.",
+          "dimension": "product-thinking"
+        }
+      ],
+      "related": [
+        "coca-cola",
+        "mcdonalds",
+        "starbucks",
+        "disney"
+      ],
+      "generated": true
+    }
+  }
 }

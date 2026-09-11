@@ -51,23 +51,8 @@ export function Broadcastplayer({
             <div className="truncate text-sm font-extrabold text-bpk-ink">
               {pick(brand.name, brand.nameEn)}
             </div>
-            <div className="flex items-center gap-1.5">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={host.emoji + seg?.id}
-                  initial={{ scale: 0.6 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold text-white"
-                  style={{ backgroundColor: host.color }}
-                >
-                  <span>{host.emoji}</span>
-                  <span className="hidden sm:inline">{host.name}</span>
-                </motion.span>
-              </AnimatePresence>
-              <span className="truncate text-xs font-medium text-bpk-muted">
-                {pick(seg?.text, seg?.textEn) ?? ""}
-              </span>
+            <div className="truncate text-[11px] font-semibold text-bpk-muted">
+              {t("podcastHosts")}
             </div>
           </div>
         </div>
@@ -128,6 +113,26 @@ export function Broadcastplayer({
         >
           {player.speed}x
         </button>
+      </div>
+
+      {/* live caption — full width so the host's line is shown completely */}
+      <div className="mx-auto flex max-w-5xl items-start gap-2 px-3 pb-2 sm:px-6">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={host.emoji + seg?.id}
+            initial={{ scale: 0.6 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="mt-px inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold text-white"
+            style={{ backgroundColor: host.color }}
+          >
+            <span>{host.emoji}</span>
+            <span>{host.name}</span>
+          </motion.span>
+        </AnimatePresence>
+        <p className="min-w-0 flex-1 text-left text-xs font-medium leading-snug text-bpk-ink">
+          {pick(seg?.text, seg?.textEn) ?? ""}
+        </p>
       </div>
 
       {/* seek bar (mobile) */}
