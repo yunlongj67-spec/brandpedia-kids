@@ -1,3 +1,18 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "id": "tal-1782551179493",
+      "query": "tal",
+      "ts": 1782551179493,
+      "result": "generated",
+      "brandSlug": "tal"
+    },
+    {
+      "id": "tal-1782551161189",
+      "query": "tal",
+      "ts": 1782551161189,
+      "result": "generated",
+      "brandSlug": "tal"
+    }
+  ]
 }

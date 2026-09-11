@@ -5,7 +5,16 @@
       "Bash(python3 *)",
       "Bash(npm --version)",
       "Bash(pnpm --version)",
-      "Bash(bun --version)"
+      "Bash(bun --version)",
+      "Bash(open \"AI Innovation Narrative.pdf\")",
+      "Bash(brew list *)",
+      "WebSearch",
+      "Bash(pip3 install *)",
+      "Read(//Applications/Blender.app/**)",
+      "Read(//Applications/Blender.app/Contents/MacOS/**)",
+      "Bash(blender --version)",
+      "Bash(git check-ignore *)",
+      "Bash(git add *)"
     ]
   }
 }
